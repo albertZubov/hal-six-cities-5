@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
-* Студент: [Александр Крапивин](https://up.htmlacademy.ru/react/5/user/197315).
-* Наставник: `Неизвестно`.
+- Студент: [Альберт Зубов](https://htmlacademy.ru/profile/id915403).
+- Наставник: [Johnny Rocket](https://htmlacademy.ru/profile/id42701).
 
 ---
 
