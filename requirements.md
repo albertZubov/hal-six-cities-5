@@ -36,7 +36,7 @@ npm i react@16.12 -E
 * eslint-config-htmlacademy@0.5
 * eslint-plugin-react@7.18
 * jest@25.1
-* react-test-renderer@16.12
+* react-test-renderer@16.12 
 * redux-devtools-extension@2.13
 * redux-mock-store@1.5
 * webpack@4.41
