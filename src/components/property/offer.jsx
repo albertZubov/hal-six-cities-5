@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Offer = (props) => {
-  const { id } = props.match.params;
+  // const { id } = props.match.params;
   return (
     <div className="page">
       <header className="header">
@@ -483,6 +483,10 @@ const Offer = (props) => {
       </main>
     </div>
   );
+};
+
+Offer.propTypes = {
+  props: PropTypes.number.isRequired,
 };
 
 export default Offer;
