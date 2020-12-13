@@ -1,4 +1,6 @@
-# Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
+![Publish](https://github.com/avocato0/hal-six-cities-5/workflows/Node.js%20CI/badge.svg)
+
+# Личный проект «Шесть городов»
 
 - Студент: [Альберт Зубов](https://htmlacademy.ru/profile/id915403).
 - Наставник: [Johnny Rocket](https://htmlacademy.ru/profile/id42701).
