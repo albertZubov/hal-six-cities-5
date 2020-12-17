@@ -25,6 +25,13 @@ jobs:
         replace: "<base href=\"/${{ github.event.repository.name }}/\">"
         include: "public/index.html"
 
+    - name: Find and Replace
+      uses: jacobtomlinson/gha-find-replace@0.1.2
+      with:
+        find: "path=\""
+        replace: "path=\"/${{ github.event.repository.name }}\">"
+        include: "components/app/app.jsx"
+
     - run: git config user.name github-actions
     - run: git config user.email github-actions@github.com
     - run: git --work-tree public add --all
