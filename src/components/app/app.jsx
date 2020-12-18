@@ -5,8 +5,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../authorization/login';
 import Favorites from '../favorites/favorites';
 import Offer from '../property/offer';
+import PlaceCard from '../place-card/place-card';
 
-const App = ({ countOffersRent }) => {
+const App = ({ countOffersRent, offers }) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -20,6 +21,10 @@ const App = ({ countOffersRent }) => {
           <Favorites />
         </Route>
         <Route exact path="/offer/:id?" component={Offer} />
+        <Route exact path="/place-card">
+          <PlaceCard offers={offers} />
+        </Route>
+        {/* <Route exact path="/place-card" offers={offers} component={PlaceCard} /> */}
       </Switch>
     </BrowserRouter>
   );
