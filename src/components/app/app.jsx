@@ -7,7 +7,8 @@ import Favorites from '../favorites/favorites';
 import Offer from '../property/offer';
 import PlaceCard from '../place-card/place-card';
 
-const App = ({ countOffersRent, offers }) => {
+const App = (props) => {
+  const { countOffersRent, offers } = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -24,7 +25,7 @@ const App = ({ countOffersRent, offers }) => {
         <Route exact path="/place-card">
           <PlaceCard offers={offers} />
         </Route>
-        {/* <Route exact path="/place-card" offers={offers} component={PlaceCard} /> */}
+        {/* <Route exact path="/place-card" component={PlaceCard} offers={offers} /> */}
       </Switch>
     </BrowserRouter>
   );
@@ -32,6 +33,18 @@ const App = ({ countOffersRent, offers }) => {
 
 App.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
+  offers: PropTypes.shape({
+    price: PropTypes.number.isRequired,
+    ratingView: PropTypes.number.isRequired,
+    classRoom: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    tariff: PropTypes.string.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    conveniences: PropTypes.array.isRequired,
+    // adults: PropTypes.number.isRequired,
+    // bedrooms: PropTypes.number.isRequired,
+    // ratingValue: PropTypes.number.isRequired,
+  }),
 };
 
 export default App;

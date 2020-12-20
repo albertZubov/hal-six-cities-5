@@ -2,20 +2,26 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 class PlaceCard extends PureComponent {
-  constructor({ props, offers }) {
+  constructor(props) {
     super(props);
-    this._offers = offers;
-    console.log(this._offers);
+    this._props = props;
+    console.log(this._props);
   }
 
   render() {
+    const {
+      name,
+      classRoom,
+      isPremium,
+      price,
+      ratingView,
+      tariff,
+    } = this._props.offers;
     return (
       <article className="cities__place-card place-card">
         <div
           className="place-card__mark"
-          style={
-            this._offers.isPremium ? { display: `block` } : { display: `none` }
-          }
+          style={isPremium ? { display: `block` } : { display: `none` }}
         >
           <span>Premium</span>
         </div>
@@ -33,8 +39,10 @@ class PlaceCard extends PureComponent {
         <div className="place-card__info">
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
-              <b className="place-card__price-value">&euro;120</b>
-              <span className="place-card__price-text">&#47;&nbsp;night</span>
+              <b className="place-card__price-value">&euro;{price}</b>
+              <span className="place-card__price-text">
+                &#47;&nbsp;{tariff}
+              </span>
             </div>
             <button
               className="place-card__bookmark-button button"
@@ -48,20 +56,33 @@ class PlaceCard extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: '80%' }}></span>
+              <span style={{ width: ratingView + `%` }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#">
-              Beautiful &amp; luxurious apartment at great location
-            </a>
+            <a href="#">{name}</a>
           </h2>
-          <p className="place-card__type">Apartment</p>
+          <p className="place-card__type">{classRoom}</p>
         </div>
       </article>
     );
   }
 }
+
+PlaceCard.propTypes = {
+  offers: PropTypes.shape({
+    price: PropTypes.number.isRequired,
+    ratingView: PropTypes.number.isRequired,
+    classRoom: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    tariff: PropTypes.string.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    conveniences: PropTypes.array.isRequired,
+    // adults: PropTypes.number.isRequired,
+    // bedrooms: PropTypes.number.isRequired,
+    // ratingValue: PropTypes.number.isRequired,
+  }),
+};
 
 export default PlaceCard;

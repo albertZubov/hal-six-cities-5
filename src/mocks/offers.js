@@ -7,6 +7,10 @@ const getCountRandom = (min, max) =>
 const getCountRandomDecimal = (min, max) =>
   Number((Math.random() * (max - min) + min).toFixed(1));
 
+const classRoomArr = [`apartments`, `private room`, `studio`, `loft`][
+  getCountRandom(0, 3)
+];
+
 export default {
   isPremium: getRandomBoolean(),
   name: [
@@ -15,10 +19,9 @@ export default {
     `Nice, cozy, warm big bed apartment`,
     `Canal View Prinsengracht`,
   ][getCountRandom(0, 3)],
-  rating: getCountRandomDecimal(2, 5),
-  classRoom: [`apartments`, `private room`, `studio`, `loft`][
-    getCountRandom(0, 3)
-  ],
+  ratingValue: getCountRandomDecimal(2, 5),
+  ratingView: getCountRandom(20, 100),
+  classRoom: classRoomArr[0].toUpperCase() + classRoomArr.slice(1),
   bedrooms: getCountRandom(1, 4),
   adults: getCountRandom(1, 5),
   price: Math.round(getCountRandom(40, 200) / 10) * 10,
