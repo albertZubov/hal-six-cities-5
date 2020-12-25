@@ -5,27 +5,40 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../authorization/login';
 import Favorites from '../favorites/favorites';
 import Offer from '../property/offer';
-import PlaceCard from '../place-card/place-card';
+import { propsOffers } from '../../props/props';
+import AddComment from '../add-comments/add-comment';
 
 const App = (props) => {
-  const { countOffersRent, offers } = props;
+  const { countOffersRent, offers, offer, city } = props;
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <PageMain countOffersRent={countOffersRent} />
-        </Route>
+        <Route
+          exact
+          path="/"
+          render={({ history }) => (
+            <PageMain
+              countOffersRent={countOffersRent}
+              offers={offers}
+              history={history}
+            />
+          )}
+        />
+
+        {/* </Route> */}
         <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/favorites">
-          <Favorites />
+          <Favorites offers={offers} city={city} />
         </Route>
-        <Route exact path="/offer/:id?" component={Offer} />
-        <Route exact path="/place-card">
-          <PlaceCard offers={offers} />
+        <Route exact path="/offer/:id?">
+          <Offer offer={offer} />
         </Route>
-        {/* <Route exact path="/place-card" component={PlaceCard} offers={offers} /> */}
+        <Route exact path="/comment">
+          <AddComment />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
@@ -33,18 +46,9 @@ const App = (props) => {
 
 App.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
-  offers: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    ratingView: PropTypes.number.isRequired,
-    classRoom: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    tariff: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    conveniences: PropTypes.array.isRequired,
-    // adults: PropTypes.number.isRequired,
-    // bedrooms: PropTypes.number.isRequired,
-    // ratingValue: PropTypes.number.isRequired,
-  }),
+  city: PropTypes.array.isRequired,
+  offer: PropTypes.shape(propsOffers),
+  offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
 export default App;
