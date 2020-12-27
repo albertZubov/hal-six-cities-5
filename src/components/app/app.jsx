@@ -26,7 +26,6 @@ const App = (props) => {
           )}
         />
 
-        {/* </Route> */}
         <Route exact path="/login">
           <Login />
         </Route>

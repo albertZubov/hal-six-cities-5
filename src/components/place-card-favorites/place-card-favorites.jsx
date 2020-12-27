@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { getCountRandom } from '../../mocks/offers';
+import { propsOffers } from '../../props/props';
 
 class PlaceCardFavorites extends PureComponent {
   constructor(props) {
@@ -58,19 +59,7 @@ class PlaceCardFavorites extends PureComponent {
 }
 
 PlaceCardFavorites.propTypes = {
-  offer: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    ratingView: PropTypes.number.isRequired,
-    classRoom: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    tariff: PropTypes.string.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    conveniences: PropTypes.array.isRequired,
-    picture: PropTypes.number.isRequired,
-    // adults: PropTypes.number.isRequired,
-    // bedrooms: PropTypes.number.isRequired,
-    // ratingValue: PropTypes.number.isRequired,
-  }),
+  offer: PropTypes.shape(propsOffers),
 };
 
 export default PlaceCardFavorites;
