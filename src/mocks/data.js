@@ -1,6 +1,6 @@
-import { getDate } from '../utils/utils';
-
+// import { getDate } from '../utils/utils';
 // const getRandomNumber = (number) => getCountRandom(0, number);
+
 const getRandomBoolean = () => Boolean(Math.round(Math.random()));
 
 export const getCountRandom = (min, max) =>
@@ -18,20 +18,11 @@ export const city = [
   'Dusseldorf',
 ];
 
-const reviewsDate = () => ({
-  name: [`Max`, `Andrey`, `Denis`, `Oleg`, `Albert`][getCountRandom(0, 4)],
-  ratingView: getCountRandom(60, 100),
-  description: [
-    `Very recommended: comfortable location, incredibly friendly staff, very tasty breakfasts, cleanliness, comfort. A decent hotel! You're great, so keep it! Thanks for the hospitality, be sure to return to you.`,
-    `Great hotel. Good location. Everything is clean and cozy. A variety of breakfasts. I thank the hotel staff. I would like to note that everyone is very friendly and polite, so an atmosphere of good rest and excellent mood is created.`,
-    `Despite its inexpensive price the hotel is very decent. Always friendly staff, willingly responded to any requests. I was pleased that before breakfast the temperature was measured and gloves and masks were given out. The location of the hotel is very comfortable, in the center you can see everything and close to the station.`,
-  ][getCountRandom(0, 2)],
-  date: getDate(
-    new Date(Date.now() - getCountRandom(10000000000, 70000000000))
-  ),
-});
+const getRatingPercent = (value) => {
+  return value / 0.05;
+};
 
-export const getOffer = () => ({
+export const getData = () => ({
   bedrooms: getCountRandom(1, 4),
   // city: {
   //   location: {
@@ -69,7 +60,7 @@ export const getOffer = () => ({
     'img/apartment-01.jpg',
     'img/apartment-02.jpg',
     'img/apartment-03.jpg',
-  ],
+  ][getCountRandom(0, 2)],
   isFavorite: getRandomBoolean(),
   isPremium: getRandomBoolean(),
   // location: {
@@ -78,9 +69,13 @@ export const getOffer = () => ({
   //   zoom: 8,
   // },
   adults: getCountRandom(1, 5),
-  // preview_image: 'img/1.png',
+  previewImage: [
+    `img/apartment-small-03.jpg`,
+    `img/room-small.jpg`,
+    `img/apartment-small-04.jpg`,
+  ][getCountRandom(0, 2)],
   price: Math.round(getCountRandom(40, 200) / 10) * 10,
-  rating: getCountRandomDecimal(2, 5),
+  rating: getRatingPercent(getCountRandomDecimal(3, 5)),
   title: [
     `Beautiful & luxurious apartment at great location`,
     `Wood and stone place`,

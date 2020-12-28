@@ -4,7 +4,7 @@ import PlacesList from '../places-list/places-list';
 import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 
-class PageMain extends PureComponent {
+class Main extends PureComponent {
   constructor(props) {
     super(props);
     this.props = props;
@@ -12,7 +12,6 @@ class PageMain extends PureComponent {
 
   render() {
     const { countOffersRent, offers, history } = this.props;
-    console.log(history.location.pathname);
 
     return (
       <div className="page page--gray page--main">
@@ -133,9 +132,9 @@ class PageMain extends PureComponent {
   }
 }
 
-PageMain.propTypes = {
+Main.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
-export default PageMain;
+export default Main;

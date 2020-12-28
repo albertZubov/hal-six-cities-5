@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import PlaceCardFavorites from '../place-card-favorites/place-card-favorites';
-import { getCountRandom } from '../../mocks/offers';
+import { getCountRandom, city } from '../../mocks/data';
 import { propsOffers } from '../../props/props';
 
 class Favorites extends PureComponent {
@@ -11,7 +11,7 @@ class Favorites extends PureComponent {
   }
 
   render() {
-    const { offers, city } = this.props;
+    const { offers } = this.props;
     return (
       <div className="page">
         <header className="header">
@@ -96,7 +96,6 @@ class Favorites extends PureComponent {
 }
 
 Favorites.propTypes = {
-  city: PropTypes.array.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 

@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
+import AddComment from '../add-comments/add-comment';
 
-class Offer extends PureComponent {
+class Room extends PureComponent {
   constructor(props) {
     super(props);
     this.props = props;
@@ -10,16 +11,15 @@ class Offer extends PureComponent {
 
   render() {
     const {
-      name,
+      title,
       isPremium,
-      ratingView,
-      classRoom,
+      rating,
+      type,
       bedrooms,
       adults,
       price,
       tariff,
-      conveniences,
-      reviews,
+      goods,
     } = this.props.offer;
 
     return (
@@ -114,7 +114,7 @@ class Offer extends PureComponent {
                   <span>Premium</span>
                 </div>
                 <div className="property__name-wrapper">
-                  <h1 className="property__name">{name}</h1>
+                  <h1 className="property__name">{title}</h1>
                   <button
                     className="property__bookmark-button button"
                     type="button"
@@ -131,7 +131,7 @@ class Offer extends PureComponent {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: ratingView + `%` }}></span>
+                    <span style={{ width: rating + `%` }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
@@ -140,7 +140,7 @@ class Offer extends PureComponent {
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {classRoom}
+                    {type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms
@@ -156,7 +156,7 @@ class Offer extends PureComponent {
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
-                    {conveniences.map((elem, id) => (
+                    {goods.map((elem, id) => (
                       <li className="property__inside-item" key={id}>
                         {elem}
                       </li>
@@ -196,47 +196,38 @@ class Offer extends PureComponent {
                     Reviews &middot; <span className="reviews__amount">1</span>
                   </h2>
                   <ul className="reviews__list">
-                    {reviews.map((review, id) => {
-                      return (
-                        <li className="reviews__item" key={id}>
-                          <div className="reviews__user user">
-                            <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                              <img
-                                className="reviews__avatar user__avatar"
-                                src="img/avatar-max.jpg"
-                                width="54"
-                                height="54"
-                                alt="Reviews avatar"
-                              />
-                            </div>
-                            <span className="reviews__user-name">
-                              {review.name}
-                            </span>
+                    <li className="reviews__item">
+                      <div className="reviews__user user">
+                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                          <img
+                            className="reviews__avatar user__avatar"
+                            src="img/avatar-max.jpg"
+                            width="54"
+                            height="54"
+                            alt="Reviews avatar"
+                          />
+                        </div>
+                        <span className="reviews__user-name">Max</span>
+                      </div>
+                      <div className="reviews__info">
+                        <div className="reviews__rating rating">
+                          <div className="reviews__stars rating__stars">
+                            <span style={{ width: '80%' }}></span>
+                            <span className="visually-hidden">Rating</span>
                           </div>
-                          <div className="reviews__info">
-                            <div className="reviews__rating rating">
-                              <div className="reviews__stars rating__stars">
-                                <span
-                                  style={{ width: review.ratingView + `%` }}
-                                ></span>
-                                <span className="visually-hidden">Rating</span>
-                              </div>
-                            </div>
-                            <p className="reviews__text">
-                              {review.description}
-                            </p>
-                            <time
-                              className="reviews__time"
-                              dateTime="2019-04-24"
-                            >
-                              {review.date.month + ' ' + review.date.year}
-                            </time>
-                          </div>
-                        </li>
-                      );
-                    })}
+                        </div>
+                        <p className="reviews__text">
+                          A quiet cozy and picturesque that hides behind a a
+                          river by the unique lightness of Amsterdam. The
+                          building is green and from 18th century.
+                        </p>
+                        <time className="reviews__time" dateTime="2019-04-24">
+                          April 2019
+                        </time>
+                      </div>
+                    </li>
                   </ul>
-                  {/* Здесь будет форма */}
+                  <AddComment />
                 </section>
               </div>
             </div>
@@ -397,8 +388,8 @@ class Offer extends PureComponent {
   }
 }
 
-Offer.propTypes = {
+Room.propTypes = {
   offer: PropTypes.shape(propsOffers),
 };
 
-export default Offer;
+export default Room;

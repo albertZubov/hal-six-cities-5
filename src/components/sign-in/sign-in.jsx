@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-const Login = () => {
+const SignIn = () => {
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -81,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

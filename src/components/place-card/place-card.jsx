@@ -10,13 +10,13 @@ class PlaceCard extends PureComponent {
 
   render() {
     const {
-      name,
-      classRoom,
+      title,
+      type,
       isPremium,
       price,
-      ratingView,
+      rating,
       tariff,
-      picture,
+      images,
     } = this.props.offer;
     return (
       <article className="cities__place-card place-card">
@@ -30,7 +30,7 @@ class PlaceCard extends PureComponent {
           <a href="#">
             <img
               className="place-card__image"
-              src={`img/apartment-0` + picture + `.jpg`}
+              src={images}
               width="260"
               height="200"
               alt="Place image"
@@ -57,14 +57,14 @@ class PlaceCard extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: ratingView + `%` }}></span>
+              <span style={{ width: rating + `%` }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#">{name}</a>
+            <a href="#">{title}</a>
           </h2>
-          <p className="place-card__type">{classRoom}</p>
+          <p className="place-card__type">{type}</p>
         </div>
       </article>
     );
