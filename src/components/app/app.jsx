@@ -8,7 +8,7 @@ import Offer from '../property/offer';
 
 const App = ({ countOffersRent }) => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Switch>
         <Route exact path="/">
           <PageMain countOffersRent={countOffersRent} />
