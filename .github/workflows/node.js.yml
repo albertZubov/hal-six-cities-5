@@ -20,8 +20,8 @@ jobs:
     - name: Find and Replace
       uses: jacobtomlinson/gha-find-replace@0.1.2
       with:
-        find: "basename=\"/"
-        replace: "basename=\"/${{ github.event.repository.name }}/"
+        find: "<BrowserRouter>"
+        replace: "<BrowserRouter basename=\"/${{ github.event.repository.name }}/\">"
         include: "src/components/app/app.jsx"
     - run: npm run build
 
