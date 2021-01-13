@@ -1,11 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
+import { Link } from 'react-router-dom';
 
 class PlaceCard extends PureComponent {
   constructor(props) {
     super(props);
     this.props = props;
+    this.state = {
+      identifier: null,
+    };
   }
 
   render() {
@@ -17,9 +21,19 @@ class PlaceCard extends PureComponent {
       rating,
       tariff,
       images,
+      id,
     } = this.props.offer;
+
     return (
-      <article className="cities__place-card place-card">
+      <article
+        className="cities__place-card place-card"
+        onMouseOver={(evt) => {
+          evt.preventDefault();
+          this.setState({
+            identifier: id,
+          });
+        }}
+      >
         <div
           className="place-card__mark"
           style={isPremium ? { display: `block` } : { display: `none` }}
@@ -27,7 +41,7 @@ class PlaceCard extends PureComponent {
           <span>Premium</span>
         </div>
         <div className="cities__image-wrapper place-card__image-wrapper">
-          <a href="#">
+          <Link to={'/offer/' + id}>
             <img
               className="place-card__image"
               src={images}
@@ -35,7 +49,7 @@ class PlaceCard extends PureComponent {
               height="200"
               alt="Place image"
             />
-          </a>
+          </Link>
         </div>
         <div className="place-card__info">
           <div className="place-card__price-wrapper">
@@ -62,7 +76,7 @@ class PlaceCard extends PureComponent {
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#">{title}</a>
+            <Link to={'/offer/' + id}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>

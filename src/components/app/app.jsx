@@ -8,7 +8,7 @@ import Room from '../room/room';
 import { propsOffers } from '../../props/props';
 
 const App = (props) => {
-  const { countOffersRent, offers, offer } = props;
+  const { countOffersRent, offers } = props;
 
   return (
     <BrowserRouter>
@@ -24,14 +24,18 @@ const App = (props) => {
             />
           )}
         />
+
         <Route exact path="/login">
           <SignIn />
         </Route>
         <Route exact path="/favorites">
           <Favorites offers={offers} />
         </Route>
+
         <Route exact path="/offer/:id">
-          <Room offer={offer} />
+          {({ match }) => (
+            <Room offer={offers.find((el) => el.id === match.params.id)} />
+          )}
         </Route>
       </Switch>
     </BrowserRouter>
@@ -40,7 +44,6 @@ const App = (props) => {
 
 App.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
-  offer: PropTypes.shape(propsOffers),
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 

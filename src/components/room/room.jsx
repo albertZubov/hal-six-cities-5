@@ -137,6 +137,7 @@ class Room extends PureComponent {
                   <span className="property__rating-value rating__value">
                     4.8
                   </span>
+                  {/* TODO поправить динамический рейтинг */}
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
