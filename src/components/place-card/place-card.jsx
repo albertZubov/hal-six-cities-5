@@ -7,9 +7,6 @@ class PlaceCard extends PureComponent {
   constructor(props) {
     super(props);
     this.props = props;
-    this.state = {
-      identifier: null,
-    };
   }
 
   render() {
@@ -23,16 +20,13 @@ class PlaceCard extends PureComponent {
       images,
       id,
     } = this.props.offer;
+    const { onActiveCard, onActiveCardLeave } = this.props;
 
     return (
       <article
         className="cities__place-card place-card"
-        onMouseOver={(evt) => {
-          evt.preventDefault();
-          this.setState({
-            identifier: id,
-          });
-        }}
+        onMouseOver={onActiveCard}
+        onMouseLeave={onActiveCardLeave}
       >
         <div
           className="place-card__mark"
@@ -86,6 +80,8 @@ class PlaceCard extends PureComponent {
 }
 
 PlaceCard.propTypes = {
+  onActiveCard: PropTypes.func.isRequired,
+  onActiveCardLeave: PropTypes.func.isRequired,
   offer: PropTypes.shape(propsOffers),
 };
 
