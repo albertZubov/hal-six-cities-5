@@ -1,25 +1,42 @@
 import React from 'react';
-import PageMain from '../page-main/page-main';
+import Main from '../main/main';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Login from '../authorization/login';
+import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
-import Offer from '../property/offer';
+import Room from '../room/room';
+import { propsOffers } from '../../props/props';
 
-const App = ({ countOffersRent }) => {
+const App = (props) => {
+  const { countOffersRent, offers } = props;
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <PageMain countOffersRent={countOffersRent} />
-        </Route>
+        <Route
+          exact
+          path="/"
+          render={({ history }) => (
+            <Main
+              countOffersRent={countOffersRent}
+              offers={offers}
+              history={history}
+            />
+          )}
+        />
+
         <Route exact path="/login">
-          <Login />
+          <SignIn />
         </Route>
         <Route exact path="/favorites">
-          <Favorites />
+          <Favorites offers={offers} />
         </Route>
-        <Route exact path="/offer/:id?" component={Offer} />
+
+        <Route exact path="/offer/:id">
+          {({ match }) => (
+            <Room offer={offers.find((el) => el.id === match.params.id)} />
+          )}
+        </Route>
       </Switch>
     </BrowserRouter>
   );
@@ -27,6 +44,7 @@ const App = ({ countOffersRent }) => {
 
 App.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
 export default App;
