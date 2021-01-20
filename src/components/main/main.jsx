@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import PlacesList from '../places-list/places-list';
+import Map from '../map/map';
 import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 
@@ -122,7 +123,9 @@ class Main extends PureComponent {
                 <PlacesList offers={offers} />
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <section className="cities__map map">
+                  <Map offers={offers} />
+                </section>
               </div>
             </div>
           </div>
