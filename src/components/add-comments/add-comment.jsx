@@ -16,7 +16,6 @@ class AddComment extends PureComponent {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log(this.state);
   }
 
   handleFieldChange(evt) {

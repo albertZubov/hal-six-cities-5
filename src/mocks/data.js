@@ -24,14 +24,14 @@ const getRatingPercent = (value) => {
 
 export const getData = () => ({
   bedrooms: getCountRandom(1, 4),
-  // city: {
-  //   location: {
-  //     latitude: 52.370216,
-  //     longitude: 4.895168,
-  //     zoom: 10,
-  //   },
-  //   name: 'Amsterdam',
-  // },
+  city: {
+    location: {
+      latitude: 52.370216,
+      longitude: 4.895168,
+      zoom: 10,
+    },
+    name: 'Amsterdam',
+  },
   description: [
     `Very recommended: comfortable location, incredibly friendly staff, very tasty breakfasts, cleanliness, comfort. A decent hotel! You're great, so keep it! Thanks for the hospitality, be sure to return to you.`,
     `Great hotel. Good location. Everything is clean and cozy. A variety of breakfasts. I thank the hotel staff. I would like to note that everyone is very friendly and polite, so an atmosphere of good rest and excellent mood is created.`,
@@ -63,11 +63,11 @@ export const getData = () => ({
   ][getCountRandom(0, 2)],
   isFavorite: getRandomBoolean(),
   isPremium: getRandomBoolean(),
-  // location: {
-  //   latitude: 52.35514938496378,
-  //   longitude: 4.673877537499948,
-  //   zoom: 8,
-  // },
+  location: {
+    latitude: +('52.3' + getCountRandom(0, 10) + '14938496678'),
+    longitude: +('4.6' + getCountRandom(0, 100) + '877537499948'),
+    // zoom: 8,
+  },
   adults: getCountRandom(1, 5),
   previewImage: [
     `img/apartment-small-03.jpg`,
