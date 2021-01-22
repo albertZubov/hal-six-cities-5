@@ -12,9 +12,11 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const [firstOffer] = this.props.offers;
+    const { offers, offersNearby } = this.props;
+    const currentArrOffers = offersNearby ? offersNearby : offers;
+    const [firstOffer] = currentArrOffers;
+
     const { latitude, longitude, zoom } = firstOffer.city.location;
-    const { offers } = this.props;
 
     // Отрисовка карты
     const locationMap = [latitude, longitude];
@@ -42,7 +44,7 @@ class Map extends PureComponent {
       iconSize: [30, 30],
     });
 
-    offers.map((el) => {
+    currentArrOffers.map((el) => {
       const offerCords = [el.location.latitude, el.location.longitude];
       return leaflet.marker(offerCords, { icon }).addTo(map);
     });
@@ -57,6 +59,7 @@ class Map extends PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
 export default Map;

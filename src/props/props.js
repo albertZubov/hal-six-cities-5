@@ -14,4 +14,17 @@ export const propsOffers = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   tariff: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+    name: PropTypes.string.isRequired,
+  }),
+  location: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+  }),
 };

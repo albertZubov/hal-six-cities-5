@@ -8,7 +8,7 @@ import Room from '../room/room';
 import { propsOffers } from '../../props/props';
 
 const App = (props) => {
-  const { countOffersRent, offers } = props;
+  const { countOffersRent, offers, offersNearby } = props;
 
   return (
     <BrowserRouter>
@@ -34,7 +34,10 @@ const App = (props) => {
 
         <Route exact path="/offer/:id">
           {({ match }) => (
-            <Room offer={offers.find((el) => el.id === match.params.id)} />
+            <Room
+              offer={offers.find((el) => el.id === match.params.id)}
+              offersNearby={offersNearby}
+            />
           )}
         </Route>
       </Switch>
@@ -45,6 +48,7 @@ const App = (props) => {
 App.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
 export default App;
