@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { propsOffers } from '../../props/props';
+// import PropTypes from 'prop-types';
+// import { propsOffers } from '../../props/props';
 
 class RewiewsItem extends PureComponent {
   constructor(props) {

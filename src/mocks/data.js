@@ -49,12 +49,12 @@ export const getData = () => ({
     `Cabel TV`,
     `Fridge`,
   ].slice(getCountRandom(0, 4), getCountRandom(4, 9)),
-  // host: {
-  //   avatar_url: 'img/1.png',
-  //   id: 3,
-  //   is_pro: true,
-  //   name: 'Angelina',
-  // },
+  host: {
+    avatarUrl: 'img/avatar-angelina.jpg',
+    id: 3,
+    // is_pro: true,
+    name: 'Angelina',
+  },
   id: Math.random().toString().split('.')[1],
   images: [
     'img/apartment-01.jpg',

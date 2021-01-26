@@ -7,14 +7,12 @@ import { propsOffers } from '../../props/props';
 class Map extends PureComponent {
   constructor(props) {
     super(props);
-    this.props = props;
     this.mapRef = React.createRef();
   }
 
   componentDidMount() {
-    const { offers, offersNearby } = this.props;
-    const currentArrOffers = offersNearby ? offersNearby : offers;
-    const [firstOffer] = currentArrOffers;
+    const { offers } = this.props;
+    const [firstOffer] = offers;
 
     const { latitude, longitude, zoom } = firstOffer.city.location;
 
@@ -22,7 +20,7 @@ class Map extends PureComponent {
     const locationMap = [latitude, longitude];
     const map = leaflet.map(this.mapRef.current, {
       center: locationMap,
-      zoom: zoom,
+      zoom,
       zoomControl: false,
       marker: true,
     });
@@ -44,7 +42,7 @@ class Map extends PureComponent {
       iconSize: [30, 30],
     });
 
-    currentArrOffers.map((el) => {
+    offers.map((el) => {
       const offerCords = [el.location.latitude, el.location.longitude];
       return leaflet.marker(offerCords, { icon }).addTo(map);
     });

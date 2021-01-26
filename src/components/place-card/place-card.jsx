@@ -2,11 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
+import { ListType } from '../places-list/places-list';
+import cl from 'classnames';
 
 class PlaceCard extends PureComponent {
   constructor(props) {
     super(props);
-    this.props = props;
   }
 
   render() {
@@ -20,11 +21,14 @@ class PlaceCard extends PureComponent {
       images,
       id,
     } = this.props.offer;
-    const { onActiveCard, onActiveCardLeave } = this.props;
+    const { onActiveCard, onActiveCardLeave, typeCard } = this.props;
 
     return (
       <article
-        className="cities__place-card place-card"
+        className={cl({
+          'cities__place-card place-card': typeCard === ListType.MAIN,
+          'near-places__card place-card': typeCard === ListType.NEARBY,
+        })}
         onMouseOver={onActiveCard}
         onMouseLeave={onActiveCardLeave}
       >
@@ -34,7 +38,14 @@ class PlaceCard extends PureComponent {
         >
           <span>Premium</span>
         </div>
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div
+          className={cl({
+            'cities__image-wrapper place-card__image-wrapper':
+              typeCard === ListType.MAIN,
+            'near-places__image-wrapper place-card__image-wrapper':
+              typeCard === ListType.NEARBY,
+          })}
+        >
           <Link to={'/offer/' + id}>
             <img
               className="place-card__image"
@@ -83,6 +94,7 @@ PlaceCard.propTypes = {
   onActiveCard: PropTypes.func.isRequired,
   onActiveCardLeave: PropTypes.func.isRequired,
   offer: PropTypes.shape(propsOffers),
+  typeCard: PropTypes.string.isRequired,
 };
 
 export default PlaceCard;

@@ -5,7 +5,6 @@ import { propsOffers } from '../../props/props';
 class PlaceCardFavorites extends PureComponent {
   constructor(props) {
     super(props);
-    this.props = props;
   }
 
   render() {
