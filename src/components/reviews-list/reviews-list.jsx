@@ -10,9 +10,12 @@ class RewiewsList extends PureComponent {
   }
 
   render() {
+    const { comments } = this.props;
     return (
       <ul className="reviews__list">
-        <RewiewsItem />
+        {comments.map((comment, index) => (
+          <RewiewsItem comment={comment} key={index} />
+        ))}
       </ul>
     );
   }

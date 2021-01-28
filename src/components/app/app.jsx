@@ -8,7 +8,7 @@ import Room from '../room/room';
 import { propsOffers } from '../../props/props';
 
 const App = (props) => {
-  const { countOffersRent, offers, offersNearby } = props;
+  const { countOffersRent, offers, offersNearby, comments } = props;
 
   return (
     <BrowserRouter>
@@ -37,6 +37,7 @@ const App = (props) => {
             <Room
               offer={offers.find((el) => el.id === match.params.id)}
               offersNearby={offersNearby}
+              comments={comments}
             />
           )}
         </Route>

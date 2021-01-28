@@ -24,7 +24,7 @@ class Room extends PureComponent {
       goods,
       host,
     } = this.props.offer;
-    const { offersNearby } = this.props;
+    const { offersNearby, comments } = this.props;
     return (
       <div className="page">
         <header className="header">
@@ -199,7 +199,7 @@ class Room extends PureComponent {
                   <h2 className="reviews__title">
                     Reviews &middot; <span className="reviews__amount">1</span>
                   </h2>
-                  <RewiewsList />
+                  <RewiewsList comments={comments} />
                   <AddComment />
                 </section>
               </div>
