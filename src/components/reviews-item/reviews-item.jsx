@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import { propsComment } from '../../props/props';
 
 class ReviewsItem extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { comment, date, rating, user } = this.props.comment;
     const { fullDate, month, year } = getDate(date);

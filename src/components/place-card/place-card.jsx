@@ -6,10 +6,6 @@ import { ListType } from '../places-list/places-list';
 import cl from 'classnames';
 
 class PlaceCard extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       title,
@@ -25,9 +21,9 @@ class PlaceCard extends PureComponent {
 
     return (
       <article
-        className={cl({
-          'cities__place-card place-card': typeCard === ListType.MAIN,
-          'near-places__card place-card': typeCard === ListType.NEARBY,
+        className={cl('place-card', {
+          'cities__place-card': typeCard === ListType.MAIN,
+          'near-places__card': typeCard === ListType.NEARBY,
         })}
         onMouseOver={onActiveCard}
         onMouseLeave={onActiveCardLeave}
@@ -39,11 +35,9 @@ class PlaceCard extends PureComponent {
           <span>Premium</span>
         </div>
         <div
-          className={cl({
-            'cities__image-wrapper place-card__image-wrapper':
-              typeCard === ListType.MAIN,
-            'near-places__image-wrapper place-card__image-wrapper':
-              typeCard === ListType.NEARBY,
+          className={cl('place-card__image-wrapper', {
+            'cities__image-wrapper': typeCard === ListType.MAIN,
+            'near-places__image-wrapper': typeCard === ListType.NEARBY,
           })}
         >
           <Link to={'/offer/' + id}>

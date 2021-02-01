@@ -6,10 +6,6 @@ import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 
 class Main extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { countOffersRent, offers, history } = this.props;
 

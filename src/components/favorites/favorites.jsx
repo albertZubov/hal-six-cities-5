@@ -5,10 +5,6 @@ import { getCountRandom, city } from '../../mocks/data';
 import { propsOffers } from '../../props/props';
 
 class Favorites extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { offers } = this.props;
     return (

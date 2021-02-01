@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
 
 class PlaceCardFavorites extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       title,

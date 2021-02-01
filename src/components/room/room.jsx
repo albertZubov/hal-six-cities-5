@@ -7,10 +7,6 @@ import Map from '../map/map';
 import PlacesList, { ListType } from '../places-list/places-list';
 
 class Room extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       title,
