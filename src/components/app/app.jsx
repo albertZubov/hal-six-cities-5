@@ -5,10 +5,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
-import { propsOffers } from '../../props/props';
+import { propsOffers, propsComment } from '../../props/props';
 
 const App = (props) => {
-  const { countOffersRent, offers } = props;
+  const { countOffersRent, offers, offersNearby, comments } = props;
 
   return (
     <BrowserRouter>
@@ -34,7 +34,11 @@ const App = (props) => {
 
         <Route exact path="/offer/:id">
           {({ match }) => (
-            <Room offer={offers.find((el) => el.id === match.params.id)} />
+            <Room
+              offer={offers.find((el) => el.id === match.params.id)}
+              offersNearby={offersNearby}
+              comments={comments}
+            />
           )}
         </Route>
       </Switch>
@@ -45,6 +49,8 @@ const App = (props) => {
 App.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
 };
 
 export default App;

@@ -7,20 +7,20 @@ import { propsOffers } from '../../props/props';
 class Map extends PureComponent {
   constructor(props) {
     super(props);
-    this.props = props;
     this.mapRef = React.createRef();
   }
 
   componentDidMount() {
-    const [firstOffer] = this.props.offers;
-    const { latitude, longitude, zoom } = firstOffer.city.location;
     const { offers } = this.props;
+    const [firstOffer] = offers;
+
+    const { latitude, longitude, zoom } = firstOffer.city.location;
 
     // Отрисовка карты
     const locationMap = [latitude, longitude];
     const map = leaflet.map(this.mapRef.current, {
       center: locationMap,
-      zoom: zoom,
+      zoom,
       zoomControl: false,
       marker: true,
     });
@@ -57,6 +57,7 @@ class Map extends PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
 export default Map;

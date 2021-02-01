@@ -22,7 +22,7 @@ const getRatingPercent = (value) => {
   return value / 0.05;
 };
 
-export const getData = () => ({
+export const getOffer = () => ({
   bedrooms: getCountRandom(1, 4),
   city: {
     location: {
@@ -49,12 +49,12 @@ export const getData = () => ({
     `Cabel TV`,
     `Fridge`,
   ].slice(getCountRandom(0, 4), getCountRandom(4, 9)),
-  // host: {
-  //   avatar_url: 'img/1.png',
-  //   id: 3,
-  //   is_pro: true,
-  //   name: 'Angelina',
-  // },
+  host: {
+    avatarUrl: 'img/avatar-angelina.jpg',
+    id: 3,
+    // is_pro: true,
+    name: 'Angelina',
+  },
   id: Math.random().toString().split('.')[1],
   images: [
     'img/apartment-01.jpg',
@@ -84,4 +84,18 @@ export const getData = () => ({
   ][getCountRandom(0, 3)],
   type: [`apartments`, `private room`, `studio`, `loft`][getCountRandom(0, 3)],
   tariff: [`night`, `light`][getCountRandom(0, 1)],
+});
+
+export const getComment = () => ({
+  comment:
+    'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+  date: '2019-05-08T14:13:56.569Z',
+  id: 1,
+  rating: getRatingPercent(getCountRandomDecimal(3, 5)),
+  user: {
+    avatarUrl: 'img/avatar-max.jpg',
+    id: 4,
+    isPro: false,
+    name: 'Max',
+  },
 });
