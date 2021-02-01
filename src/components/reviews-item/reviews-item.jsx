@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
 import { getDate } from '../../utils/utils';
-// import PropTypes from 'prop-types';
-// import { propsOffers } from '../../props/props';
+import PropTypes from 'prop-types';
+import { propsComment } from '../../props/props';
 
-class RewiewsItem extends PureComponent {
+class ReviewsItem extends PureComponent {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { comment, date, id, rating, user } = this.props.comment;
+    const { comment, date, rating, user } = this.props.comment;
     const { fullDate, month, year } = getDate(date);
     return (
       <li className="reviews__item">
@@ -42,4 +42,8 @@ class RewiewsItem extends PureComponent {
   }
 }
 
-export default RewiewsItem;
+ReviewsItem.propTypes = {
+  comment: PropTypes.shape(propsComment),
+};
+
+export default ReviewsItem;

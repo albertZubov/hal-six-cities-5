@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
-import { propsOffers } from '../../props/props';
+import { propsOffers, propsComment } from '../../props/props';
 
 const App = (props) => {
   const { countOffersRent, offers, offersNearby, comments } = props;
@@ -50,6 +50,7 @@ App.propTypes = {
   countOffersRent: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
 };
 
 export default App;

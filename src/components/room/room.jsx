@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { propsOffers } from '../../props/props';
+import { propsOffers, propsComment } from '../../props/props';
 import AddComment from '../add-comments/add-comment';
-import RewiewsList from '../reviews-list/reviews-list';
+import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import PlacesList, { ListType } from '../places-list/places-list';
 
@@ -199,7 +199,7 @@ class Room extends PureComponent {
                   <h2 className="reviews__title">
                     Reviews &middot; <span className="reviews__amount">1</span>
                   </h2>
-                  <RewiewsList comments={comments} />
+                  <ReviewsList comments={comments} />
                   <AddComment />
                 </section>
               </div>
@@ -225,6 +225,7 @@ class Room extends PureComponent {
 Room.propTypes = {
   offer: PropTypes.shape(propsOffers),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
 };
 
 export default Room;
