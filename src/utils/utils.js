@@ -1,3 +1,5 @@
+import { getOffer, getCountRandom } from '../mocks/data';
+
 export const getDate = (dateTime) => {
   const arrDate = dateTime.split('T');
   const date = arrDate[0].split('-');
@@ -15,4 +17,14 @@ export const getDate = (dateTime) => {
     minutes: time[1],
     seconds: time[2].slice(0, -1),
   };
+};
+
+export const extend = (a, b) => Object.assign({}, a, b);
+
+export const createArrOffers = (count) => {
+  const createOffers = (countOffer) =>
+    new Array(countOffer).fill(``).map(getOffer);
+  return new Array(count)
+    .fill([])
+    .map(() => createOffers(getCountRandom(3, 7)));
 };

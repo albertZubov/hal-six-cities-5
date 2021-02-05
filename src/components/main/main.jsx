@@ -4,11 +4,26 @@ import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
 import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { ActionCreator } from '../store/action';
+import { city } from '../../mocks/data';
+import { createArrOffers } from '../../utils/utils';
+import cl from 'classnames';
+
+export const arrOffers = createArrOffers(city.length);
 
 class Main extends PureComponent {
   render() {
-    const { countOffersRent, offers, history } = this.props;
-
+    console.log(this.props);
+    const {
+      countOffersRent,
+      offers,
+      history,
+      changeCity,
+      loadingPlacesList,
+      activeCity,
+      activeOffers,
+    } = this.props;
     return (
       <div className="page page--gray page--main">
         <header className="header">
@@ -48,37 +63,28 @@ class Main extends PureComponent {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Paris</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
-                    <span>Amsterdam</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </li>
+              <ul
+                className="locations__list tabs__list"
+                // TODO добавить проверку
+                onClick={({ target }) => {
+                  changeCity(target.textContent);
+                }}
+              >
+                {city.map((el, id) => {
+                  return (
+                    <li className="locations__item" key={id}>
+                      <a
+                        className={cl('locations__item-link tabs__item', {
+                          'tabs__item--active': el === activeCity,
+                        })}
+                        href="#"
+                        onClick={() => loadingPlacesList(arrOffers[id])}
+                      >
+                        <span>{el}</span>
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           </div>
@@ -115,11 +121,11 @@ class Main extends PureComponent {
                     </li>
                   </ul>
                 </form>
-                <PlacesList offers={offers} />
+                <PlacesList offers={activeOffers} />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offers={offers} />
+                  <Map offers={activeOffers} />
                 </section>
               </div>
             </div>
@@ -135,4 +141,14 @@ Main.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  activeCity: state.city,
+  activeOffers: state.offers,
+});
+const mapDispatchToProps = (dispatch) => ({
+  changeCity: (payload) => dispatch(ActionCreator.changeCity(payload)),
+  loadingPlacesList: (payload) =>
+    dispatch(ActionCreator.loadingPlacesList(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
