@@ -6,9 +6,10 @@ import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../store/action';
-import { city } from '../../mocks/data';
 import { createArrOffers } from '../../utils/utils';
+import CityList from '../city-list/city-list';
 import cl from 'classnames';
+import { city } from '../../mocks/data';
 
 export const arrOffers = createArrOffers(city.length);
 
@@ -58,14 +59,13 @@ class Main extends PureComponent {
             </div>
           </div>
         </header>
-
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
+              {/* <CityList /> */}
               <ul
                 className="locations__list tabs__list"
-                // TODO добавить проверку
                 onClick={({ target }) => {
                   changeCity(target.textContent);
                 }}
