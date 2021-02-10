@@ -13,7 +13,11 @@ class CityList extends PureComponent {
       <ul
         className="locations__list tabs__list"
         onClick={({ target }) => {
-          changeCity(target.textContent);
+          if (target.tagName !== 'SPAN' && target.tagName !== 'A') {
+            return;
+          } else {
+            changeCity(target.textContent);
+          }
           // loadingPlacesList(activeHotels);
         }}
       >
