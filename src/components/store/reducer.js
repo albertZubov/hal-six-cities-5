@@ -1,26 +1,31 @@
-import { extend } from '../../utils/utils';
+import { extend, sortArrOnCities } from '../../utils/utils';
 import { ActionType } from './action';
-import { arrOffers } from '../../components/main/main';
 
-const initialState = {
-  city: 'Amsterdam',
-  offers: arrOffers[3],
-};
+const DEFAULT_CITY = 'Amsterdam';
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CITY_SELECTION:
-      return extend(state, {
-        city: action.payload,
-      });
+const reducer = (offers) => {
+  const initialState = {
+    activeCity: DEFAULT_CITY,
+    activeOffer: sortArrOnCities(offers)[DEFAULT_CITY],
+    offers: offers,
+  };
 
-    case ActionType.PLACES_LIST:
-      return extend(state, {
-        offers: action.payload,
-      });
-  }
+  return (state = initialState, action) => {
+    switch (action.type) {
+      case ActionType.CITY_SELECTION:
+        return extend(state, {
+          activeCity: action.payload,
+          activeOffer: sortArrOnCities(state.offers)[action.payload],
+        });
 
-  return state;
+      // case ActionType.LOAD_PLACES_LIST:
+      //   return extend(state, {
+      //     activeOffer: action.payload,
+      //   });
+    }
+
+    return state;
+  };
 };
 
 export { reducer };

@@ -1,5 +1,3 @@
-import { getOffer, getCountRandom } from '../mocks/data';
-
 export const getDate = (dateTime) => {
   const arrDate = dateTime.split('T');
   const date = arrDate[0].split('-');
@@ -21,10 +19,16 @@ export const getDate = (dateTime) => {
 
 export const extend = (a, b) => Object.assign({}, a, b);
 
-export const createArrOffers = (count) => {
-  const createOffers = (countOffer) =>
-    new Array(countOffer).fill(``).map(getOffer);
-  return new Array(count)
-    .fill([])
-    .map(() => createOffers(getCountRandom(3, 7)));
+export const createArrElements = (count, data) =>
+  new Array(count).fill(``).map(data);
+
+export const sortArrOnCities = (arr) => {
+  const citiesObj = {};
+  arr.forEach((el) => {
+    const { city } = el;
+    citiesObj[city.name] = citiesObj[city.name]
+      ? [...citiesObj[city.name], el]
+      : [el];
+  });
+  return citiesObj;
 };

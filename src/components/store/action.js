@@ -1,6 +1,6 @@
 export const ActionType = {
   CITY_SELECTION: `CITY_SELECTION`,
-  PLACES_LIST: `PLACES_LIST`,
+  // LOAD_PLACES_LIST: `LOAD_PLACES_LIST`,
 };
 
 export const ActionCreator = {
@@ -9,8 +9,8 @@ export const ActionCreator = {
     payload: city,
   }),
 
-  loadingPlacesList: (arrOffers) => ({
-    type: ActionType.PLACES_LIST,
-    payload: arrOffers,
-  }),
+  // loadingPlacesList: (hotels) => ({
+  //   type: ActionType.LOAD_PLACES_LIST,
+  //   payload: hotels,
+  // }),
 };

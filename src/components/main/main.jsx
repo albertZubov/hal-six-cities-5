@@ -5,26 +5,12 @@ import Map from '../map/map';
 import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../store/action';
-import { createArrOffers } from '../../utils/utils';
 import CityList from '../city-list/city-list';
-import cl from 'classnames';
-import { city } from '../../mocks/data';
-
-export const arrOffers = createArrOffers(city.length);
 
 class Main extends PureComponent {
   render() {
-    console.log(this.props);
-    const {
-      countOffersRent,
-      offers,
-      history,
-      changeCity,
-      loadingPlacesList,
-      activeCity,
-      activeOffers,
-    } = this.props;
+    const { activeOffer } = this.props;
+
     return (
       <div className="page page--gray page--main">
         <header className="header">
@@ -63,29 +49,7 @@ class Main extends PureComponent {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              {/* <CityList /> */}
-              <ul
-                className="locations__list tabs__list"
-                onClick={({ target }) => {
-                  changeCity(target.textContent);
-                }}
-              >
-                {city.map((el, id) => {
-                  return (
-                    <li className="locations__item" key={id}>
-                      <a
-                        className={cl('locations__item-link tabs__item', {
-                          'tabs__item--active': el === activeCity,
-                        })}
-                        href="#"
-                        onClick={() => loadingPlacesList(arrOffers[id])}
-                      >
-                        <span>{el}</span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
+              <CityList />
             </section>
           </div>
           <div className="cities">
@@ -93,7 +57,7 @@ class Main extends PureComponent {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {countOffersRent} places to stay in Amsterdam
+                  {activeOffer.length} places to stay in Amsterdam
                 </b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
@@ -121,11 +85,11 @@ class Main extends PureComponent {
                     </li>
                   </ul>
                 </form>
-                <PlacesList offers={activeOffers} />
+                <PlacesList offers={activeOffer} />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offers={activeOffers} />
+                  <Map offers={activeOffer} />
                 </section>
               </div>
             </div>
@@ -137,18 +101,11 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  countOffersRent: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  activeOffer: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.city,
-  activeOffers: state.offers,
-});
-const mapDispatchToProps = (dispatch) => ({
-  changeCity: (payload) => dispatch(ActionCreator.changeCity(payload)),
-  loadingPlacesList: (payload) =>
-    dispatch(ActionCreator.loadingPlacesList(payload)),
+  activeOffer: state.activeOffer,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);

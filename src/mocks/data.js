@@ -30,7 +30,7 @@ export const getOffer = () => ({
       longitude: 4.895168,
       zoom: 10,
     },
-    name: 'Amsterdam',
+    name: city[getCountRandom(0, city.length - 1)],
   },
   description: [
     `Very recommended: comfortable location, incredibly friendly staff, very tasty breakfasts, cleanliness, comfort. A decent hotel! You're great, so keep it! Thanks for the hospitality, be sure to return to you.`,

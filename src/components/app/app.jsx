@@ -8,22 +8,12 @@ import Room from '../room/room';
 import { propsOffers, propsComment } from '../../props/props';
 
 const App = (props) => {
-  const { countOffersRent, offers, offersNearby, comments } = props;
+  const { offers, offersNearby, comments } = props;
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={({ history }) => (
-            <Main
-              countOffersRent={countOffersRent}
-              offers={offers}
-              history={history}
-            />
-          )}
-        />
+        <Route exact path="/" render={() => <Main />} />
 
         <Route exact path="/login">
           <SignIn />
@@ -47,7 +37,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  countOffersRent: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
