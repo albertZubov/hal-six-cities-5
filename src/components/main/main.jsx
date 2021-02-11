@@ -9,7 +9,8 @@ import CityList from '../city-list/city-list';
 
 class Main extends PureComponent {
   render() {
-    const { activeOffer } = this.props;
+    const { activeOffer, activeCity } = this.props;
+    console.log(activeOffer);
 
     return (
       <div className="page page--gray page--main">
@@ -57,7 +58,7 @@ class Main extends PureComponent {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {activeOffer.length} places to stay in Amsterdam
+                  {activeOffer.length} places to stay in {activeCity}
                 </b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
@@ -102,10 +103,12 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   activeOffer: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  activeCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   activeOffer: state.activeOffer,
+  activeCity: state.activeCity,
 });
 
 export default connect(mapStateToProps)(Main);

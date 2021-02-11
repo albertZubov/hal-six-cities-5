@@ -1,6 +1,3 @@
-// import { getDate } from '../utils/utils';
-// const getRandomNumber = (number) => getCountRandom(0, number);
-
 const getRandomBoolean = () => Boolean(Math.round(Math.random()));
 
 export const getCountRandom = (min, max) =>

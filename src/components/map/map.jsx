@@ -49,8 +49,8 @@ class Map extends PureComponent {
     });
   }
 
-  componentDidUpdate(newProps) {
-    const { offers } = newProps;
+  componentDidUpdate() {
+    const { offers } = this.props;
     const [firstOffer] = offers;
 
     const { latitude, longitude, zoom } = firstOffer.city.location;
