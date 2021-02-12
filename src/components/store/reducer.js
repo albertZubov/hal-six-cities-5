@@ -17,11 +17,6 @@ const reducer = (offers) => {
           activeCity: action.payload,
           activeOffer: sortArrOnCities(state.offers)[action.payload],
         });
-
-      // case ActionType.LOAD_PLACES_LIST:
-      //   return extend(state, {
-      //     activeOffer: action.payload,
-      //   });
     }
 
     return state;

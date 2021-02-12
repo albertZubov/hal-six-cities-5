@@ -18,7 +18,6 @@ class CityList extends PureComponent {
           } else {
             changeCity(target.textContent);
           }
-          // loadingPlacesList(activeHotels);
         }}
       >
         {city.map((el, id) => {
@@ -51,8 +50,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity: (payload) => dispatch(ActionCreator.changeCity(payload)),
-  // loadingPlacesList: (payload) =>
-  //   dispatch(ActionCreator.loadingPlacesList(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityList);

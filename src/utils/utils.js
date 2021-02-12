@@ -22,13 +22,11 @@ export const extend = (a, b) => Object.assign({}, a, b);
 export const createArrElements = (count, data) =>
   new Array(count).fill(``).map(data);
 
-export const sortArrOnCities = (arr) => {
-  const citiesObj = {};
-  arr.forEach((el) => {
-    const { city } = el;
-    citiesObj[city.name] = citiesObj[city.name]
-      ? [...citiesObj[city.name], el]
-      : [el];
-  });
-  return citiesObj;
-};
+export const sortArrOnCities = (arr) =>
+  arr.reduce((accumulator, currentValue) => {
+    const { city } = currentValue;
+    accumulator[city.name] = accumulator[city.name]
+      ? [...accumulator[city.name], currentValue]
+      : [currentValue];
+    return accumulator;
+  }, {});
