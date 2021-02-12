@@ -4,10 +4,17 @@ import 'leaflet/dist/leaflet.css';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
 
+// Отрисовка маркера
+const icon = leaflet.icon({
+  iconUrl: `img/pin.svg`,
+  iconSize: [30, 30],
+});
+
 class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
+    this.map = null;
   }
 
   componentDidMount() {
@@ -18,14 +25,14 @@ class Map extends PureComponent {
 
     // Отрисовка карты
     const locationMap = [latitude, longitude];
-    const map = leaflet.map(this.mapRef.current, {
+    this.map = leaflet.map(this.mapRef.current, {
       center: locationMap,
       zoom,
       zoomControl: false,
       marker: true,
     });
 
-    map.setView(locationMap, zoom);
+    this.map.setView(locationMap, zoom);
     leaflet
       .tileLayer(
         `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
@@ -34,17 +41,33 @@ class Map extends PureComponent {
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         }
       )
-      .addTo(map);
-
-    // Отрисовка маркера
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30],
-    });
+      .addTo(this.map);
 
     offers.map((el) => {
       const offerCords = [el.location.latitude, el.location.longitude];
-      return leaflet.marker(offerCords, { icon }).addTo(map);
+      return leaflet.marker(offerCords, { icon }).addTo(this.map);
+    });
+  }
+
+  componentDidUpdate() {
+    const { offers } = this.props;
+    const [firstOffer] = offers;
+
+    const { latitude, longitude, zoom } = firstOffer.city.location;
+
+    // Отрисовка карты
+    const locationMap = [latitude, longitude];
+
+    this.map.eachLayer((layer) => {
+      if (layer.options.icon) {
+        layer.remove();
+      }
+    });
+
+    this.map.setView(locationMap, zoom);
+
+    offers.forEach(({ location: { latitude, longitude } }) => {
+      leaflet.marker([latitude, longitude], { icon }).addTo(this.map);
     });
   }
 
