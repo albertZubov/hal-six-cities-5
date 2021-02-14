@@ -19,13 +19,13 @@ class PlacesList extends PureComponent {
 
   render() {
     const { offers, type = ListType.MAIN } = this.props;
+    // const sortedOffers = sortOffer(offers, sortingType);
 
     return (
       <div
-        className={cl({
-          'cities__places-list places__list tabs__content':
-            type === ListType.MAIN,
-          'near-places__list places__list': type === ListType.NEARBY,
+        className={cl('places__list', {
+          'cities__places-list tabs__content': type === ListType.MAIN,
+          'near-places__list': type === ListType.NEARBY,
         })}
       >
         {offers.map((offer, index) => (

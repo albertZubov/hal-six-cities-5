@@ -11,7 +11,6 @@ import PlacesSorting from '../places-sorting/places-sorting';
 class Main extends PureComponent {
   render() {
     const { activeOffer, activeCity } = this.props;
-    console.log(activeOffer);
 
     return (
       <div className="page page--gray page--main">
@@ -61,7 +60,7 @@ class Main extends PureComponent {
                 <b className="places__found">
                   {activeOffer.length} places to stay in {activeCity}
                 </b>
-                <PlacesSorting />
+                <PlacesSorting offers={activeOffer} />
                 <PlacesList offers={activeOffer} />
               </section>
               <div className="cities__right-section">

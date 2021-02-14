@@ -30,3 +30,21 @@ export const sortArrOnCities = (arr) =>
       : [currentValue];
     return accumulator;
   }, {});
+
+export const sortOffer = (name) => {
+  console.log(name);
+  // switch (dataset.name) {
+  //   // case btnSort.POPULAR:
+  //   //   offers = offersPopular;
+  //   //   break;
+  //   case btnSort.LOW_HIGH:
+  //     // offers.sort((prev, next) => prev.price - next.price);
+  //     break;
+  //   case btnSort.HIGH_LOW:
+  //     // offers.sort((prev, next) => next.price - prev.price);
+  //     break;
+  //   // case btnSort.RATED_FIRST:
+  //   //   console.log(dataset.name);
+  //   //   break;
+  // }
+};
