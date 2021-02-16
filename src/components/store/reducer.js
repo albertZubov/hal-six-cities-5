@@ -1,15 +1,16 @@
-import { extend, sortArrOnCities, sortOffer } from '../../utils/utils';
+import { extend, sortArrOnCities } from '../../utils/utils';
 import { ActionType } from './action';
 
 const DEFAULT_CITY = 'Amsterdam';
-const DEFAULT_TYPE_SORT = 'popular';
+const DEFAULT_TYPE_SORT = 'Popular';
 
 const reducer = (offers) => {
   const initialState = {
     activeCity: DEFAULT_CITY,
     activeOffer: sortArrOnCities(offers)[DEFAULT_CITY],
-    activeTypeSort: null,
+    activeTypeSort: DEFAULT_TYPE_SORT,
     offers: offers,
+    activeCityID: null,
   };
 
   return (state = initialState, action) => {
@@ -22,7 +23,10 @@ const reducer = (offers) => {
       case ActionType.TYPE_SORTING:
         return extend(state, {
           activeTypeSort: action.payload,
-          // activeSortOffer: sortOffer(action.payload),
+        });
+      case ActionType.CITY_ID:
+        return extend(state, {
+          activeCityID: action.payload,
         });
     }
 

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 import { propsOffers } from '../../props/props';
 import cl from 'classnames';
+import { connect } from 'react-redux';
+import { sortOffer } from '../../utils/utils';
+import { ActionCreator } from '../store/action';
 
 export const ListType = {
   MAIN: 'MAIN',
@@ -12,14 +15,19 @@ export const ListType = {
 class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      idActiveCard: null,
-    };
+    // this.state = {
+    //   idActiveCard: null,
+    // };
   }
 
   render() {
-    const { offers, type = ListType.MAIN } = this.props;
-    // const sortedOffers = sortOffer(offers, sortingType);
+    const {
+      offers,
+      type = ListType.MAIN,
+      activeTypeSort,
+      getCityID,
+    } = this.props;
+    const sortedOffers = sortOffer(offers, activeTypeSort);
 
     return (
       <div
@@ -28,13 +36,13 @@ class PlacesList extends PureComponent {
           'near-places__list': type === ListType.NEARBY,
         })}
       >
-        {offers.map((offer, index) => (
+        {sortedOffers.map((offer, index) => (
           <PlaceCard
             offer={offer}
             key={index}
             typeCard={type}
-            onActiveCard={() => this.setState({ idActiveCard: offer.id })}
-            onActiveCardLeave={() => this.setState({ idActiveCard: null })}
+            onActiveCard={() => getCityID(offer.id)}
+            onActiveCardLeave={() => getCityID(null)}
           />
         ))}
       </div>
@@ -44,7 +52,18 @@ class PlacesList extends PureComponent {
 
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  activeTypeSort: PropTypes.string.isRequired,
+  getCityID: PropTypes.func.isRequired,
 };
 
-export default PlacesList;
+const mapStateToProps = (state) => ({
+  activeTypeSort: state.activeTypeSort,
+  activeCityID: state.activeCityID,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCityID: (payload) => dispatch(ActionCreator.getCityID(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesList);

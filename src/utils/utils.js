@@ -1,3 +1,5 @@
+import { btnSort } from '../const/const';
+
 export const getDate = (dateTime) => {
   const arrDate = dateTime.split('T');
   const date = arrDate[0].split('-');
@@ -31,20 +33,21 @@ export const sortArrOnCities = (arr) =>
     return accumulator;
   }, {});
 
-export const sortOffer = (name) => {
-  console.log(name);
-  // switch (dataset.name) {
-  //   // case btnSort.POPULAR:
-  //   //   offers = offersPopular;
-  //   //   break;
-  //   case btnSort.LOW_HIGH:
-  //     // offers.sort((prev, next) => prev.price - next.price);
-  //     break;
-  //   case btnSort.HIGH_LOW:
-  //     // offers.sort((prev, next) => next.price - prev.price);
-  //     break;
-  //   // case btnSort.RATED_FIRST:
-  //   //   console.log(dataset.name);
-  //   //   break;
-  // }
+export const sortOffer = (offer, type) => {
+  const copyOffer = offer.slice();
+  switch (type) {
+    case btnSort.POPULAR:
+      return copyOffer;
+    case btnSort.LOW_HIGH:
+      copyOffer.sort((prev, next) => prev.price - next.price);
+      break;
+    case btnSort.HIGH_LOW:
+      copyOffer.sort((prev, next) => next.price - prev.price);
+      break;
+    case btnSort.RATED_FIRST:
+      copyOffer.sort((prev, next) => next.rating - prev.rating);
+      break;
+  }
+
+  return copyOffer;
 };

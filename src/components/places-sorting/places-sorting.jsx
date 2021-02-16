@@ -1,14 +1,10 @@
 import React, { PureComponent } from 'react';
 import cl from 'classnames';
 import { connect } from 'react-redux';
-import { ActionCreator, ActionType } from '../store/action';
+import { ActionCreator } from '../store/action';
+import { btnSort } from '../../const/const';
+import PropTypes from 'prop-types';
 
-const btnSort = {
-  POPULAR: 'popular',
-  LOW_HIGH: 'lowHigh',
-  HIGH_LOW: 'highLow',
-  RATED_FIRST: 'ratedFirst',
-};
 class PlacesSorting extends PureComponent {
   constructor(props) {
     super(props);
@@ -17,26 +13,9 @@ class PlacesSorting extends PureComponent {
     };
   }
 
-  sort(name) {
-    // console.log(name);
-    // switch (dataset.name) {
-    //   // case btnSort.POPULAR:
-    //   //   offers = offersPopular;
-    //   //   break;
-    //   case btnSort.LOW_HIGH:
-    //     // offers.sort((prev, next) => prev.price - next.price);
-    //     break;
-    //   case btnSort.HIGH_LOW:
-    //     // offers.sort((prev, next) => next.price - prev.price);
-    //     break;
-    //   // case btnSort.RATED_FIRST:
-    //   //   console.log(dataset.name);
-    //   //   break;
-    // }
-  }
-
   render() {
-    const { sortingType } = this.props;
+    const { sortingType, activeTypeSort } = this.props;
+    const btnSortToArray = Object.values(btnSort);
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -62,36 +41,38 @@ class PlacesSorting extends PureComponent {
           })}
           onClick={({ target }) => {
             sortingType(target.dataset.name);
-
-            // this.sort(activeTypeSort);
           }}
-          // onClick={({ target }) => this.sort(target)}
         >
-          <li
-            className="places__option places__option--active"
-            tabIndex="0"
-            data-name="popular"
-          >
-            Popular
-          </li>
-          <li className="places__option" tabIndex="0" data-name="lowHigh">
-            Price: low to high
-          </li>
-          <li className="places__option" tabIndex="0" data-name="highLow">
-            Price: high to low
-          </li>
-          <li className="places__option" tabIndex="0" data-name="ratedFirst">
-            Top rated first
-          </li>
+          {btnSortToArray.map((btn, id) => (
+            <li
+              className={cl('places__option', {
+                'places__option--active': btn === activeTypeSort,
+              })}
+              tabIndex="0"
+              data-name={btn}
+              key={id}
+              onClick={() => {
+                this.setState({
+                  isOpen: !this.state.isOpen,
+                });
+              }}
+            >
+              {btn}
+            </li>
+          ))}
         </ul>
       </form>
     );
   }
 }
 
+PlacesSorting.propTypes = {
+  sortingType: PropTypes.func.isRequired,
+  activeTypeSort: PropTypes.string.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   activeTypeSort: state.activeTypeSort,
-  // activeSortOffer: state.activeSortOffer,
 });
 const mapDispatchToProps = (dispatch) => ({
   sortingType: (payload) => dispatch(ActionCreator.sortingType(payload)),
