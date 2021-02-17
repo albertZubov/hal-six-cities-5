@@ -95,7 +95,7 @@ class Map extends PureComponent {
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  activeCityID: PropTypes.number.isRequired,
+  activeCityID: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

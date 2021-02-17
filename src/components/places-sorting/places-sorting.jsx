@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import cl from 'classnames';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../store/action';
-import { btnSort } from '../../const/const';
+import { BtnSort } from '../../const/const';
 import PropTypes from 'prop-types';
+import { btnSortToArray } from '../../utils/utils';
 
 class PlacesSorting extends PureComponent {
   constructor(props) {
@@ -15,7 +16,6 @@ class PlacesSorting extends PureComponent {
 
   render() {
     const { sortingType, activeTypeSort } = this.props;
-    const btnSortToArray = Object.values(btnSort);
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -29,7 +29,7 @@ class PlacesSorting extends PureComponent {
             });
           }}
         >
-          Popular
+          {BtnSort[activeTypeSort]}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
@@ -39,9 +39,6 @@ class PlacesSorting extends PureComponent {
             'places__options--opened': this.state.isOpen,
             'places__options--closed': !this.state.isOpen,
           })}
-          onClick={({ target }) => {
-            sortingType(target.dataset.name);
-          }}
         >
           {btnSortToArray.map((btn, id) => (
             <li
@@ -49,15 +46,15 @@ class PlacesSorting extends PureComponent {
                 'places__option--active': btn === activeTypeSort,
               })}
               tabIndex="0"
-              data-name={btn}
               key={id}
               onClick={() => {
+                sortingType(btn);
                 this.setState({
                   isOpen: !this.state.isOpen,
                 });
               }}
             >
-              {btn}
+              {BtnSort[btn]}
             </li>
           ))}
         </ul>

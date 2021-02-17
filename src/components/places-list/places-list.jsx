@@ -6,6 +6,7 @@ import cl from 'classnames';
 import { connect } from 'react-redux';
 import { sortOffer } from '../../utils/utils';
 import { ActionCreator } from '../store/action';
+import { DefaultValue } from '../../const/const';
 
 export const ListType = {
   MAIN: 'MAIN',
@@ -13,13 +14,6 @@ export const ListType = {
 };
 
 class PlacesList extends PureComponent {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   idActiveCard: null,
-    // };
-  }
-
   render() {
     const {
       offers,
@@ -42,7 +36,7 @@ class PlacesList extends PureComponent {
             key={index}
             typeCard={type}
             onActiveCard={() => getCityID(offer.id)}
-            onActiveCardLeave={() => getCityID(null)}
+            onActiveCardLeave={() => getCityID(DefaultValue.CITY_ID)}
           />
         ))}
       </div>
@@ -52,7 +46,7 @@ class PlacesList extends PureComponent {
 
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   activeTypeSort: PropTypes.string.isRequired,
   getCityID: PropTypes.func.isRequired,
 };
