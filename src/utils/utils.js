@@ -1,3 +1,5 @@
+import { BtnSortType } from '../const/const';
+
 export const getDate = (dateTime) => {
   const arrDate = dateTime.split('T');
   const date = arrDate[0].split('-');
@@ -30,3 +32,22 @@ export const sortArrOnCities = (arr) =>
       : [currentValue];
     return accumulator;
   }, {});
+
+export const sortOffer = (offer, type) => {
+  const copyOffer = offer.slice();
+  switch (type) {
+    case BtnSortType.POPULAR:
+      return copyOffer;
+    case BtnSortType.LOW_HIGH:
+      copyOffer.sort((prev, next) => prev.price - next.price);
+      break;
+    case BtnSortType.HIGH_LOW:
+      copyOffer.sort((prev, next) => next.price - prev.price);
+      break;
+    case BtnSortType.RATED_FIRST:
+      copyOffer.sort((prev, next) => next.rating - prev.rating);
+      break;
+  }
+
+  return copyOffer;
+};

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import { getOffer, getComment } from './mocks/data';
-import { createArrElements, sortArrOnCities } from './utils/utils';
+import { createArrElements } from './utils/utils';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer } from './components/store/reducer';

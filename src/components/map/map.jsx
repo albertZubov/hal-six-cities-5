@@ -3,10 +3,17 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
+import { connect } from 'react-redux';
 
 // Отрисовка маркера
 const icon = leaflet.icon({
   iconUrl: `img/pin.svg`,
+  iconSize: [30, 30],
+});
+
+// Отрисовка активного маркера
+const iconHover = leaflet.icon({
+  iconUrl: `img/pin-active.svg`,
   iconSize: [30, 30],
 });
 
@@ -45,12 +52,12 @@ class Map extends PureComponent {
 
     offers.map((el) => {
       const offerCords = [el.location.latitude, el.location.longitude];
-      return leaflet.marker(offerCords, { icon }).addTo(this.map);
+      return leaflet.marker(offerCords, { icon: icon }).addTo(this.map);
     });
   }
 
   componentDidUpdate() {
-    const { offers } = this.props;
+    const { offers, activeCityID } = this.props;
     const [firstOffer] = offers;
 
     const { latitude, longitude, zoom } = firstOffer.city.location;
@@ -66,8 +73,15 @@ class Map extends PureComponent {
 
     this.map.setView(locationMap, zoom);
 
-    offers.forEach(({ location: { latitude, longitude } }) => {
-      leaflet.marker([latitude, longitude], { icon }).addTo(this.map);
+    offers.forEach((offer) => {
+      const {
+        location: { latitude, longitude },
+        id,
+      } = offer;
+      const iconActive = id === activeCityID ? iconHover : icon;
+      leaflet
+        .marker([latitude, longitude], { icon: iconActive })
+        .addTo(this.map);
     });
   }
 
@@ -81,6 +95,11 @@ class Map extends PureComponent {
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  activeCityID: PropTypes.string.isRequired,
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  activeCityID: state.activeCityID,
+});
+
+export default connect(mapStateToProps)(Map);

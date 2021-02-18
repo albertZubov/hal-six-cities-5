@@ -1,0 +1,13 @@
+export const BtnSortType = {
+  POPULAR: 'POPULAR',
+  LOW_HIGH: 'LOW_HIGH',
+  HIGH_LOW: 'HIGH_LOW',
+  RATED_FIRST: 'RATED_FIRST',
+};
+
+export const BtnSortTitle = {
+  [BtnSortType.POPULAR]: 'Popular',
+  [BtnSortType.LOW_HIGH]: 'Price: low to high',
+  [BtnSortType.HIGH_LOW]: 'Price: high to low',
+  [BtnSortType.RATED_FIRST]: 'Top rated first',
+};
