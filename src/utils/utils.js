@@ -1,4 +1,4 @@
-import { BtnSort } from '../const/const';
+import { BtnSortType } from '../const/const';
 
 export const getDate = (dateTime) => {
   const arrDate = dateTime.split('T');
@@ -33,20 +33,18 @@ export const sortArrOnCities = (arr) =>
     return accumulator;
   }, {});
 
-export const btnSortToArray = Object.keys(BtnSort);
-
 export const sortOffer = (offer, type) => {
   const copyOffer = offer.slice();
   switch (type) {
-    case btnSortToArray[0]:
+    case BtnSortType.POPULAR:
       return copyOffer;
-    case btnSortToArray[1]:
+    case BtnSortType.LOW_HIGH:
       copyOffer.sort((prev, next) => prev.price - next.price);
       break;
-    case btnSortToArray[2]:
+    case BtnSortType.HIGH_LOW:
       copyOffer.sort((prev, next) => next.price - prev.price);
       break;
-    case btnSortToArray[3]:
+    case BtnSortType.RATED_FIRST:
       copyOffer.sort((prev, next) => next.rating - prev.rating);
       break;
   }

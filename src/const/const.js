@@ -1,12 +1,13 @@
-export const BtnSort = {
-  POPULAR: 'Popular',
-  LOW_HIGH: 'Price: low to high',
-  HIGH_LOW: 'Price: high to low',
-  RATED_FIRST: 'Top rated first',
+export const BtnSortType = {
+  POPULAR: 'POPULAR',
+  LOW_HIGH: 'LOW_HIGH',
+  HIGH_LOW: 'HIGH_LOW',
+  RATED_FIRST: 'RATED_FIRST',
 };
 
-export const DefaultValue = {
-  CITY: 'Amsterdam',
-  TYPE_SORT: 'POPULAR',
-  CITY_ID: '0',
+export const BtnSortTitle = {
+  [BtnSortType.POPULAR]: 'Popular',
+  [BtnSortType.LOW_HIGH]: 'Price: low to high',
+  [BtnSortType.HIGH_LOW]: 'Price: high to low',
+  [BtnSortType.RATED_FIRST]: 'Top rated first',
 };

@@ -6,7 +6,6 @@ import cl from 'classnames';
 import { connect } from 'react-redux';
 import { sortOffer } from '../../utils/utils';
 import { ActionCreator } from '../store/action';
-import { DefaultValue } from '../../const/const';
 
 export const ListType = {
   MAIN: 'MAIN',
@@ -36,7 +35,7 @@ class PlacesList extends PureComponent {
             key={index}
             typeCard={type}
             onActiveCard={() => getCityID(offer.id)}
-            onActiveCardLeave={() => getCityID(DefaultValue.CITY_ID)}
+            onActiveCardLeave={() => getCityID('0')}
           />
         ))}
       </div>

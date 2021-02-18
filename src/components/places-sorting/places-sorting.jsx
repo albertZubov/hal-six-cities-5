@@ -2,9 +2,8 @@ import React, { PureComponent } from 'react';
 import cl from 'classnames';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../store/action';
-import { BtnSort } from '../../const/const';
+import { BtnSortType, BtnSortTitle } from '../../const/const';
 import PropTypes from 'prop-types';
-import { btnSortToArray } from '../../utils/utils';
 
 class PlacesSorting extends PureComponent {
   constructor(props) {
@@ -16,6 +15,8 @@ class PlacesSorting extends PureComponent {
 
   render() {
     const { sortingType, activeTypeSort } = this.props;
+
+    const btnSortToArray = Object.keys(BtnSortType);
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -29,7 +30,7 @@ class PlacesSorting extends PureComponent {
             });
           }}
         >
-          {BtnSort[activeTypeSort]}
+          {BtnSortTitle[activeTypeSort]}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
@@ -54,7 +55,7 @@ class PlacesSorting extends PureComponent {
                 });
               }}
             >
-              {BtnSort[btn]}
+              {BtnSortTitle[btn]}
             </li>
           ))}
         </ul>
