@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { propsOffers, propsComment } from '../../props/props';
-import addComment from '../add-comments/add-comment';
+import AddComment from '../add-comments/add-comment';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import PlacesList, { ListType } from '../places-list/places-list';
 import withAddComment from '../../hocs/with-add-comment';
 
-const AddCommentHOC = withAddComment(addComment);
+const AddCommentWrapped = withAddComment(AddComment);
 class Room extends PureComponent {
   render() {
     const {
@@ -199,7 +199,7 @@ class Room extends PureComponent {
                     Reviews &middot; <span className="reviews__amount">1</span>
                   </h2>
                   <ReviewsList comments={comments} />
-                  <AddCommentHOC />
+                  <AddCommentWrapped />
                 </section>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const addComment = (props) => {
+const AddComment = (props) => {
   const titleLabel = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
   const { handleSubmit, handleFieldChange } = props;
 
@@ -63,9 +63,9 @@ const addComment = (props) => {
   );
 };
 
-addComment.propTypes = {
+AddComment.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleFieldChange: PropTypes.func.isRequired,
 };
 
-export default addComment;
+export default AddComment;
