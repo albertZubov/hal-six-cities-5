@@ -5,7 +5,9 @@ import AddComment from '../add-comments/add-comment';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import PlacesList, { ListType } from '../places-list/places-list';
+import withAddComment from '../../hocs/with-add-comment';
 
+const AddCommentWrapped = withAddComment(AddComment);
 class Room extends PureComponent {
   render() {
     const {
@@ -21,6 +23,7 @@ class Room extends PureComponent {
       host,
     } = this.props.offer;
     const { offersNearby, comments } = this.props;
+
     return (
       <div className="page">
         <header className="header">
@@ -196,7 +199,7 @@ class Room extends PureComponent {
                     Reviews &middot; <span className="reviews__amount">1</span>
                   </h2>
                   <ReviewsList comments={comments} />
-                  <AddComment />
+                  <AddCommentWrapped />
                 </section>
               </div>
             </div>
