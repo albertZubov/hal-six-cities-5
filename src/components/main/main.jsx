@@ -1,16 +1,20 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import PlacesList from '../places-list/places-list';
-import Map from '../map/map';
-import { propsOffers } from '../../props/props';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import CityList from '../city-list/city-list';
-import PlacesSorting from '../places-sorting/places-sorting';
+import PlacesListContainer from '../places-list-container/places-list-container';
+import PlacesListEmpty from '../places-list-empty/places-list-empty';
+import cl from 'classnames';
 
 class Main extends PureComponent {
   render() {
-    const { activeOffer, activeCity } = this.props;
+    const { offers } = this.props;
+    const placesList = offers.length ? (
+      <PlacesListContainer />
+    ) : (
+      <PlacesListEmpty />
+    );
 
     return (
       <div className="page page--gray page--main">
@@ -46,30 +50,18 @@ class Main extends PureComponent {
             </div>
           </div>
         </header>
-        <main className="page__main page__main--index">
+        <main
+          className={cl('page__main page__main--index', {
+            'page__main--index-empty': placesList,
+          })}
+        >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
               <CityList />
             </section>
           </div>
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">
-                  {activeOffer.length} places to stay in {activeCity}
-                </b>
-                <PlacesSorting offers={activeOffer} />
-                <PlacesList offers={activeOffer} />
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map offers={activeOffer} />
-                </section>
-              </div>
-            </div>
-          </div>
+          <div className="cities">{placesList}</div>
         </main>
       </div>
     );
@@ -77,13 +69,11 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  activeOffer: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  activeCity: PropTypes.string.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  activeOffer: state.activeOffer,
-  activeCity: state.activeCity,
+  offers: state.offers,
 });
 
 export default connect(mapStateToProps)(Main);
