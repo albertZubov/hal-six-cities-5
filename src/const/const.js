@@ -11,3 +11,8 @@ export const BtnSortTitle = {
   [BtnSortType.HIGH_LOW]: 'Price: high to low',
   [BtnSortType.RATED_FIRST]: 'Top rated first',
 };
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+};
