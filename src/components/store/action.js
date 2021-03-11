@@ -3,7 +3,7 @@ export const ActionType = {
   TYPE_SORTING: `TYPE_SORTING`,
   CITY_ID: `CITY_ID `,
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
-  LOAD_HOTELS: 'LOAD_HOTELS',
+  LOAD_OFFERS: 'LOAD_OFFERS',
 };
 
 export const ActionCreator = {
@@ -27,8 +27,8 @@ export const ActionCreator = {
     payload: status,
   }),
 
-  loadingHotels: (hotels) => ({
-    type: ActionType.LOAD_HOTELS,
-    payload: hotels,
+  loadingHotels: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers,
   }),
 };

@@ -4,6 +4,7 @@ import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 import { ListType } from '../places-list/places-list';
 import cl from 'classnames';
+import { convertNumberToPercent } from '../../utils/utils';
 
 class PlaceCard extends PureComponent {
   render() {
@@ -17,6 +18,7 @@ class PlaceCard extends PureComponent {
       images,
       id,
     } = this.props.offer;
+    console.log(this.props.offer);
     const { onActiveCard, onActiveCardLeave, typeCard } = this.props;
 
     return (
@@ -43,7 +45,7 @@ class PlaceCard extends PureComponent {
           <Link to={'/offer/' + id}>
             <img
               className="place-card__image"
-              src={images}
+              src={images[0]}
               width="260"
               height="200"
               alt="Place image"
@@ -70,7 +72,9 @@ class PlaceCard extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: rating + `%` }}></span>
+              <span
+                style={{ width: convertNumberToPercent(rating) + `%` }}
+              ></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

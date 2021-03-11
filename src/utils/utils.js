@@ -51,3 +51,16 @@ export const sortOffer = (offer, type) => {
 
   return copyOffer;
 };
+
+export const convertNumberToPercent = (value) => value / 0.05;
+
+export const formattingDataServerToClinet = (data) =>
+  data.map((el) =>
+    Object.keys(el).map((str) =>
+      str.replace(/\_./g, (match) => match.replace(/\_/g, '').toUpperCase())
+    )
+  );
+
+// export const formattingDataClientToServer = ( ) => {
+
+// }

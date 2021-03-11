@@ -2,17 +2,16 @@ import { extend, sortArrOnCities } from '../../utils/utils';
 import { ActionType } from './action';
 import { AuthorizationStatus } from '../../const/const';
 
-const reducer = (offers) => {
-  const DEFAULT_CITY = 'Amsterdam';
+const reducer = () => {
+  const DEFAULT_CITY = `Amsterdam`;
   const DEFAULT_TYPE_SORT = 'POPULAR';
   const DEFAULT_CITY_ID = '0';
 
   const initialState = {
     activeCity: DEFAULT_CITY,
-    activeOffer: sortArrOnCities(offers)[DEFAULT_CITY],
+    activeOffer: [],
     activeTypeSort: DEFAULT_TYPE_SORT,
-    offers: offers,
-    hotels: [],
+    offers: [],
     activeCityID: DEFAULT_CITY_ID,
     AuthorizationStatus: AuthorizationStatus.NO_AUTH,
   };
@@ -37,9 +36,9 @@ const reducer = (offers) => {
           AuthorizationStatus: action.payload,
         });
 
-      case ActionType.LOAD_HOTELS:
+      case ActionType.LOAD_OFFERS:
         return extend(state, {
-          hotels: action.payload,
+          offers: action.payload,
         });
     }
 

@@ -6,12 +6,14 @@ import CityList from '../city-list/city-list';
 import PlacesListContainer from '../places-list-container/places-list-container';
 import PlacesListEmpty from '../places-list-empty/places-list-empty';
 import cl from 'classnames';
+import { sortArrOnCities } from '../../utils/utils';
 
 class Main extends PureComponent {
   render() {
-    const { offers } = this.props;
+    const { offers, activeCity } = this.props;
+    const activeOffer = sortArrOnCities(offers)[activeCity];
     const placesList = offers.length ? (
-      <PlacesListContainer />
+      <PlacesListContainer activeOffer={activeOffer} />
     ) : (
       <PlacesListEmpty />
     );
@@ -70,10 +72,12 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   offers: PropTypes.array.isRequired,
+  activeCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  activeCity: state.activeCity,
 });
 
 export default connect(mapStateToProps)(Main);

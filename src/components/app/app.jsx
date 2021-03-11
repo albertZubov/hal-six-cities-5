@@ -9,6 +9,7 @@ import { propsOffers, propsComment } from '../../props/props';
 
 const App = (props) => {
   const { offers, offersNearby, comments } = props;
+  
 
   return (
     <BrowserRouter>
