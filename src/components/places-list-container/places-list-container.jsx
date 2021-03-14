@@ -22,7 +22,7 @@ class PlacesListContainer extends PureComponent {
         </section>
         <div className="cities__right-section">
           <section className="cities__map map">
-            {/* <Map offers={activeOffer} /> */}
+            <Map offers={activeOffer} />
           </section>
         </div>
       </div>

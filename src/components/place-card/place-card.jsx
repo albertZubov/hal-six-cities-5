@@ -14,11 +14,10 @@ class PlaceCard extends PureComponent {
       isPremium,
       price,
       rating,
-      tariff,
-      images,
+      // tariff,
+      previewImage,
       id,
     } = this.props.offer;
-    console.log(this.props.offer);
     const { onActiveCard, onActiveCardLeave, typeCard } = this.props;
 
     return (
@@ -45,7 +44,7 @@ class PlaceCard extends PureComponent {
           <Link to={'/offer/' + id}>
             <img
               className="place-card__image"
-              src={images[0]}
+              src={previewImage}
               width="260"
               height="200"
               alt="Place image"
@@ -57,7 +56,7 @@ class PlaceCard extends PureComponent {
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{price}</b>
               <span className="place-card__price-text">
-                &#47;&nbsp;{tariff}
+                {/* &#47;&nbsp;{tariff} */}
               </span>
             </div>
             <button

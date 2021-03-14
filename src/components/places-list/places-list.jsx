@@ -15,7 +15,6 @@ export const ListType = {
 class PlacesList extends PureComponent {
   render() {
     const { offers, type = ListType.MAIN, activeTypeSort } = this.props;
-
     const sortedOffers = sortOffer(offers, activeTypeSort);
 
     return (

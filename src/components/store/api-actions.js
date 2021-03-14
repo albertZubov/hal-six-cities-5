@@ -1,10 +1,12 @@
 import { ActionCreator } from '../store/action';
 import { AuthorizationStatus } from '../../const/const';
+import { formattingDataServerToClinet } from '../../utils/utils';
 
 export const fetchPlacesList = () => (dispatch, _getState, api) =>
   api.get(`/hotels`).then(({ data }) => {
-    dispatch(ActionCreator.loadingHotels(data));
-    return data;
+    const formatData = formattingDataServerToClinet(data);
+    dispatch(ActionCreator.loadingHotels(formatData));
+    return formatData;
   });
 
 export const checkAuth = () => (dispatch, _getState, api) =>
