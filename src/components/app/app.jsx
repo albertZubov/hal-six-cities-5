@@ -14,7 +14,6 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" render={() => <Main />} />
-
         <Route exact path="/login">
           <SignIn />
         </Route>
@@ -25,7 +24,7 @@ const App = (props) => {
         <Route exact path="/offer/:id">
           {({ match }) => (
             <Room
-              offer={offers.find((el) => el.id === match.params.id)}
+              offer={offers.find((el) => el.id === +match.params.id)}
               offersNearby={offersNearby}
               comments={comments}
             />

@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import cl from 'classnames';
 import { connect } from 'react-redux';
 import { ActionCreator } from '../store/action';
-import { BtnSortType, BtnSortTitle } from '../../const/const';
+import { BtnSortType, BtnSortTitle } from 'const/const';
 import PropTypes from 'prop-types';
+import { getActiveTypeSort } from 'components/store/selectors';
 
 class PlacesSorting extends PureComponent {
   constructor(props) {
@@ -70,7 +71,7 @@ PlacesSorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeTypeSort: state.activeTypeSort,
+  activeTypeSort: getActiveTypeSort(state),
 });
 const mapDispatchToProps = (dispatch) => ({
   sortingType: (payload) => dispatch(ActionCreator.sortingType(payload)),

@@ -4,6 +4,7 @@ import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 import { ListType } from '../places-list/places-list';
 import cl from 'classnames';
+import { convertNumberToPercent } from '../../utils/utils';
 
 class PlaceCard extends PureComponent {
   render() {
@@ -13,8 +14,8 @@ class PlaceCard extends PureComponent {
       isPremium,
       price,
       rating,
-      tariff,
-      images,
+      // tariff,
+      previewImage,
       id,
     } = this.props.offer;
     const { onActiveCard, onActiveCardLeave, typeCard } = this.props;
@@ -25,8 +26,8 @@ class PlaceCard extends PureComponent {
           'cities__place-card': typeCard === ListType.MAIN,
           'near-places__card': typeCard === ListType.NEARBY,
         })}
-        onMouseOver={onActiveCard}
-        onMouseLeave={onActiveCardLeave}
+        onMouseOver={() => onActiveCard(id)}
+        onMouseLeave={() => onActiveCardLeave(null)}
       >
         <div
           className="place-card__mark"
@@ -43,7 +44,7 @@ class PlaceCard extends PureComponent {
           <Link to={'/offer/' + id}>
             <img
               className="place-card__image"
-              src={images}
+              src={previewImage}
               width="260"
               height="200"
               alt="Place image"
@@ -55,7 +56,7 @@ class PlaceCard extends PureComponent {
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{price}</b>
               <span className="place-card__price-text">
-                &#47;&nbsp;{tariff}
+                {/* &#47;&nbsp;{tariff} */}
               </span>
             </div>
             <button
@@ -70,7 +71,9 @@ class PlaceCard extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{ width: rating + `%` }}></span>
+              <span
+                style={{ width: convertNumberToPercent(rating) + `%` }}
+              ></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

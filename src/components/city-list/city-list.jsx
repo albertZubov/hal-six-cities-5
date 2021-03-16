@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ActionCreator } from '../store/action';
 import cl from 'classnames';
 import { city } from '../../mocks/data';
+import { getActiveCity } from 'components/store/selectors';
 
 class CityList extends PureComponent {
   render() {
@@ -45,7 +46,7 @@ CityList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
+  activeCity: getActiveCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

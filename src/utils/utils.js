@@ -51,3 +51,21 @@ export const sortOffer = (offer, type) => {
 
   return copyOffer;
 };
+
+export const convertNumberToPercent = (value) => value / 0.05;
+
+const serverAdapter = (obj) =>
+  Object.keys(obj).reduce((newObj, key) => {
+    const value = obj[key];
+    const newKey = key.replace(/\_([a-z])/, (_, chr) => chr.toUpperCase());
+    newObj[newKey] =
+      value.constructor.name === 'Object' ? serverAdapter(value) : value;
+    return newObj;
+  }, {});
+
+export const formattingDataServerToClinet = (arrData) =>
+  arrData.map((obj) => serverAdapter(obj));
+
+// export const formattingDataClientToServer = ( ) => {
+
+// }

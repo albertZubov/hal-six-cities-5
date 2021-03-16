@@ -1,17 +1,19 @@
-import { extend, sortArrOnCities } from '../../utils/utils';
-import { ActionType } from './action';
+import { extend, sortArrOnCities } from 'utils/utils';
+import { ActionType } from '../action';
+import { AuthorizationStatus } from 'const/const';
 
-const reducer = (offers) => {
-  const DEFAULT_CITY = 'Amsterdam';
+const activeReducer = () => {
+  const DEFAULT_CITY = `Amsterdam`;
   const DEFAULT_TYPE_SORT = 'POPULAR';
-  const DEFAULT_CITY_ID = '0';
+  const DEFAULT_CITY_ID = null;
 
   const initialState = {
     activeCity: DEFAULT_CITY,
-    activeOffer: sortArrOnCities(offers)[DEFAULT_CITY],
+    // activeOffer: [],
     activeTypeSort: DEFAULT_TYPE_SORT,
-    offers: offers,
     activeCityID: DEFAULT_CITY_ID,
+    authorizationStatus: AuthorizationStatus.NO_AUTH,
+    // offers: [],
   };
 
   return (state = initialState, action) => {
@@ -19,7 +21,7 @@ const reducer = (offers) => {
       case ActionType.CITY_SELECTION:
         return extend(state, {
           activeCity: action.payload,
-          activeOffer: sortArrOnCities(state.offers)[action.payload],
+          // activeOffer: sortArrOnCities(state.offers)[action.payload],
         });
       case ActionType.TYPE_SORTING:
         return extend(state, {
@@ -29,10 +31,14 @@ const reducer = (offers) => {
         return extend(state, {
           activeCityID: action.payload,
         });
+      case ActionType.REQUIRED_AUTHORIZATION:
+        return extend(state, {
+          authorizationStatus: action.payload,
+        });
     }
 
     return state;
   };
 };
 
-export { reducer };
+export { activeReducer };

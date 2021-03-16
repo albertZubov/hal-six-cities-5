@@ -6,6 +6,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import PlacesList, { ListType } from '../places-list/places-list';
 import withAddComment from '../../hocs/with-add-comment';
+import { convertNumberToPercent } from '../../utils/utils';
 
 const AddCommentWrapped = withAddComment(AddComment);
 class Room extends PureComponent {
@@ -16,12 +17,14 @@ class Room extends PureComponent {
       rating,
       type,
       bedrooms,
-      adults,
+      maxAdults,
       price,
-      tariff,
+      // tariff,
       goods,
       host,
+      images,
     } = this.props.offer;
+    console.log(this.props.offer);
     const { offersNearby, comments } = this.props;
 
     return (
@@ -63,48 +66,15 @@ class Room extends PureComponent {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/room.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-02.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-03.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/studio-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
-                <div className="property__image-wrapper">
-                  <img
-                    className="property__image"
-                    src="img/apartment-01.jpg"
-                    alt="Photo studio"
-                  />
-                </div>
+                {images.map((image, id) => (
+                  <div className="property__image-wrapper" key={id}>
+                    <img
+                      className="property__image"
+                      src={image}
+                      alt="Photo studio"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
             <div className="property__container container">
@@ -133,13 +103,14 @@ class Room extends PureComponent {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: rating + `%` }}></span>
+                    <span
+                      style={{ width: convertNumberToPercent(rating) + `%` }}
+                    ></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
-                    4.8
+                    {rating}
                   </span>
-                  {/* TODO поправить динамический рейтинг */}
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
@@ -149,12 +120,12 @@ class Room extends PureComponent {
                     {bedrooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
-                    Max {adults} adults
+                    Max {maxAdults} adults
                   </li>
                 </ul>
                 <div className="property__price">
                   <b className="property__price-value">&euro;{price}</b>
-                  <span className="property__price-text">&nbsp;{tariff}</span>
+                  {/* <span className="property__price-text">&nbsp;{tariff}</span> */}
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>

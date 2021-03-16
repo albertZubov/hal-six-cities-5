@@ -6,6 +6,7 @@ import cl from 'classnames';
 import { connect } from 'react-redux';
 import { sortOffer } from '../../utils/utils';
 import { ActionCreator } from '../store/action';
+import { getActiveTypeSort } from 'components/store/selectors';
 
 export const ListType = {
   MAIN: 'MAIN',
@@ -14,12 +15,7 @@ export const ListType = {
 
 class PlacesList extends PureComponent {
   render() {
-    const {
-      offers,
-      type = ListType.MAIN,
-      activeTypeSort,
-      getCityID,
-    } = this.props;
+    const { offers, type = ListType.MAIN, activeTypeSort } = this.props;
     const sortedOffers = sortOffer(offers, activeTypeSort);
 
     return (
@@ -29,13 +25,13 @@ class PlacesList extends PureComponent {
           'near-places__list': type === ListType.NEARBY,
         })}
       >
-        {sortedOffers.map((offer, index) => (
+        {sortedOffers.map((offer) => (
           <PlaceCard
             offer={offer}
-            key={index}
+            key={offer.id}
             typeCard={type}
-            onActiveCard={() => getCityID(offer.id)}
-            onActiveCardLeave={() => getCityID('0')}
+            onActiveCard={this.props.getCityID}
+            onActiveCardLeave={this.props.getCityID}
           />
         ))}
       </div>
@@ -51,8 +47,7 @@ PlacesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeTypeSort: state.activeTypeSort,
-  activeCityID: state.activeCityID,
+  activeTypeSort: getActiveTypeSort(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

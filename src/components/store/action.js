@@ -2,6 +2,8 @@ export const ActionType = {
   CITY_SELECTION: `CITY_SELECTION`,
   TYPE_SORTING: `TYPE_SORTING`,
   CITY_ID: `CITY_ID `,
+  REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
+  LOAD_OFFERS: 'LOAD_OFFERS',
 };
 
 export const ActionCreator = {
@@ -18,5 +20,15 @@ export const ActionCreator = {
   getCityID: (id) => ({
     type: ActionType.CITY_ID,
     payload: id,
+  }),
+
+  requereAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+
+  loadingHotels: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers,
   }),
 };

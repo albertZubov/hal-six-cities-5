@@ -6,12 +6,13 @@ import CityList from '../city-list/city-list';
 import PlacesListContainer from '../places-list-container/places-list-container';
 import PlacesListEmpty from '../places-list-empty/places-list-empty';
 import cl from 'classnames';
+import { getOffers, getActiveCity, getPlacesList } from '../store/selectors';
 
 class Main extends PureComponent {
   render() {
-    const { offers } = this.props;
+    const { offers, activeOffer } = this.props;
     const placesList = offers.length ? (
-      <PlacesListContainer />
+      <PlacesListContainer activeOffer={activeOffer} />
     ) : (
       <PlacesListEmpty />
     );
@@ -70,10 +71,14 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   offers: PropTypes.array.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  activeOffer: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: getOffers(state),
+  activeCity: getActiveCity(state),
+  activeOffer: getPlacesList(state),
 });
 
 export default connect(mapStateToProps)(Main);
