@@ -6,6 +6,7 @@ import cl from 'classnames';
 import { connect } from 'react-redux';
 import { sortOffer } from '../../utils/utils';
 import { ActionCreator } from '../store/action';
+import { getActiveTypeSort } from 'components/store/selectors';
 
 export const ListType = {
   MAIN: 'MAIN',
@@ -46,7 +47,7 @@ PlacesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeTypeSort: state.activeTypeSort,
+  activeTypeSort: getActiveTypeSort(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

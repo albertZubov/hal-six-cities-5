@@ -5,6 +5,7 @@ import PlacesSorting from '../places-sorting/places-sorting';
 import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
 import { connect } from 'react-redux';
+import { getActiveCity } from 'components/store/selectors';
 
 class PlacesListContainer extends PureComponent {
   render() {
@@ -36,7 +37,7 @@ PlacesListContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
+  activeCity: getActiveCity(state),
 });
 
 export default connect(mapStateToProps)(PlacesListContainer);

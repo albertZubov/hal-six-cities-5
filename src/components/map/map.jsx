@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
 import { connect } from 'react-redux';
+import { getActiveCityID } from 'components/store/selectors';
 
 // Отрисовка маркера
 const icon = leaflet.icon({
@@ -95,11 +96,11 @@ class Map extends PureComponent {
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  activeCityID: PropTypes.string.isRequired,
+  activeCityID: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
-  activeCityID: state.activeCityID,
+  activeCityID: getActiveCityID(state),
 });
 
 export default connect(mapStateToProps)(Map);

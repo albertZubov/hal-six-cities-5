@@ -27,7 +27,7 @@ class PlaceCard extends PureComponent {
           'near-places__card': typeCard === ListType.NEARBY,
         })}
         onMouseOver={() => onActiveCard(id)}
-        onMouseLeave={() => onActiveCardLeave('0')}
+        onMouseLeave={() => onActiveCardLeave(null)}
       >
         <div
           className="place-card__mark"
