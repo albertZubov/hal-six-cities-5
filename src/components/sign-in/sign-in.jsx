@@ -2,6 +2,9 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 
 const SignIn = () => {
+  // TODO сделать классовым неуправляемым компонентом, собрать данные для полей логин и пароль, и отправить в сторе
+  // TODO перенсти стор на уровень выше
+
   return (
     <div className="page page--gray page--login">
       <header className="header">

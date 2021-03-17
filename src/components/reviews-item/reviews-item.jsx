@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { getDate } from '../../utils/utils';
+import { getDate } from 'utils/utils';
 import PropTypes from 'prop-types';
 import { propsComment } from '../../props/props';
 

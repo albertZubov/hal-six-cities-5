@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { sortArrOnCities } from '../../utils/utils';
+import { sortArrOnCities } from 'utils/utils';
 
 export const getOffers = (state) => state.DATA.offers;
 export const getActiveCity = (state) => state.PROCESS.activeCity;

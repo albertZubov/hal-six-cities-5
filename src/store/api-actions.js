@@ -1,6 +1,6 @@
-import { ActionCreator } from '../store/action';
+import { ActionCreator } from 'store/action';
 import { AuthorizationStatus } from 'const/const';
-import { formattingDataServerToClinet } from '../../utils/utils';
+import { formattingDataServerToClinet } from 'utils/utils';
 
 export const fetchPlacesList = () => (dispatch, _getState, api) =>
   api.get(`/hotels`).then(({ data }) => {
@@ -13,15 +13,15 @@ export const checkAuth = () => (dispatch, _getState, api) =>
   api
     .get(`/login`)
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       dispatch(ActionCreator.requereAuthorization(AuthorizationStatus.AUTH));
     })
     .catch((err) => {
       // throw err;
-      // console.log(err);
+      console.log('meow');
     });
 
-export const login = ({ login: email, password }) => (
+export const login = ({ login: email, password: password }) => (
   dispatch,
   _getState,
   api

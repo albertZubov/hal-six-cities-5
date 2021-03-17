@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../store/action';
+import { ActionCreator } from 'store/action';
 import cl from 'classnames';
 import { city } from '../../mocks/data';
-import { getActiveCity } from 'components/store/selectors';
+import { getActiveCity } from 'store/selectors';
 
 class CityList extends PureComponent {
   render() {

@@ -6,7 +6,7 @@ import CityList from '../city-list/city-list';
 import PlacesListContainer from '../places-list-container/places-list-container';
 import PlacesListEmpty from '../places-list-empty/places-list-empty';
 import cl from 'classnames';
-import { getOffers, getActiveCity, getPlacesList } from '../store/selectors';
+import { getOffers, getActiveCity, getPlacesList } from 'store/selectors';
 
 class Main extends PureComponent {
   render() {

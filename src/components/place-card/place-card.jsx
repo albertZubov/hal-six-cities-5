@@ -4,7 +4,7 @@ import { propsOffers } from '../../props/props';
 import { Link } from 'react-router-dom';
 import { ListType } from '../places-list/places-list';
 import cl from 'classnames';
-import { convertNumberToPercent } from '../../utils/utils';
+import { convertNumberToPercent } from 'utils/utils';
 
 class PlaceCard extends PureComponent {
   render() {

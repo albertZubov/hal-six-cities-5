@@ -5,7 +5,7 @@ import PlacesSorting from '../places-sorting/places-sorting';
 import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
 import { connect } from 'react-redux';
-import { getActiveCity } from 'components/store/selectors';
+import { getActiveCity } from 'store/selectors';
 
 class PlacesListContainer extends PureComponent {
   render() {
