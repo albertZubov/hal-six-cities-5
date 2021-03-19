@@ -6,6 +6,8 @@ import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import { propsOffers, propsComment } from '../../props/props';
+import { AppRoute } from '../../const/const';
+import PrivateRoute from 'components/private-route/private-route';
 
 const App = (props) => {
   const { offers, offersNearby, comments } = props;
@@ -13,14 +15,15 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <Favorites offers={offers} />}
+        />
         <Route exact path="/" render={() => <Main />} />
         <Route exact path="/login">
           <SignIn />
         </Route>
-        <Route exact path="/favorites">
-          <Favorites offers={offers} />
-        </Route>
-
         <Route exact path="/offer/:id">
           {({ match }) => (
             <Room

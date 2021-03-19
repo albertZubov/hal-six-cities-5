@@ -6,11 +6,18 @@ import CityList from '../city-list/city-list';
 import PlacesListContainer from '../places-list-container/places-list-container';
 import PlacesListEmpty from '../places-list-empty/places-list-empty';
 import cl from 'classnames';
-import { getOffers, getActiveCity, getPlacesList } from 'store/selectors';
+import { propsUserData } from '../../props/props';
+import {
+  getOffers,
+  getActiveCity,
+  getPlacesList,
+  getUserData,
+} from 'store/selectors';
 
 class Main extends PureComponent {
   render() {
     const { offers, activeOffer } = this.props;
+    const { email, avatarUrl } = this.props.userData;
     const placesList = offers.length ? (
       <PlacesListContainer activeOffer={activeOffer} />
     ) : (
@@ -40,9 +47,12 @@ class Main extends PureComponent {
                       to="/favorites"
                       className="header__nav-link header__nav-link--profile"
                     >
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                      <div
+                        className="header__avatar-wrapper user__avatar-wrapper"
+                        style={{ backgroundImage: 'url(' + avatarUrl + ')' }}
+                      ></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {email}
                       </span>
                     </Link>
                   </li>
@@ -73,12 +83,14 @@ Main.propTypes = {
   offers: PropTypes.array.isRequired,
   activeCity: PropTypes.string.isRequired,
   activeOffer: PropTypes.array.isRequired,
+  userData: PropTypes.shape(propsUserData),
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
   activeCity: getActiveCity(state),
   activeOffer: getPlacesList(state),
+  userData: getUserData(state),
 });
 
 export default connect(mapStateToProps)(Main);

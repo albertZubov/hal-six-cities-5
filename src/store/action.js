@@ -4,6 +4,7 @@ export const ActionType = {
   CITY_ID: `CITY_ID `,
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
   LOAD_OFFERS: 'LOAD_OFFERS',
+  LOAD_USER_DATA: 'LOAD_USER_DATA',
 };
 
 export const ActionCreator = {
@@ -30,5 +31,10 @@ export const ActionCreator = {
   loadingHotels: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
+  }),
+
+  loadUserData: (userData) => ({
+    type: ActionType.LOAD_USER_DATA,
+    payload: userData,
   }),
 };

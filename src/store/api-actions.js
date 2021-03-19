@@ -1,6 +1,6 @@
 import { ActionCreator } from 'store/action';
 import { AuthorizationStatus } from 'const/const';
-import { formattingDataServerToClinet } from 'utils/utils';
+import { formattingDataServerToClinet, serverAdapter } from 'utils/utils';
 
 export const fetchPlacesList = () => (dispatch, _getState, api) =>
   api.get(`/hotels`).then(({ data }) => {
@@ -12,9 +12,10 @@ export const fetchPlacesList = () => (dispatch, _getState, api) =>
 export const checkAuth = () => (dispatch, _getState, api) =>
   api
     .get(`/login`)
-    .then((response) => {
-      // console.log(response);
+    .then(({ data }) => {
+      console.log(data);
       dispatch(ActionCreator.requereAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.loadUserData(serverAdapter(data)));
     })
     .catch((err) => {
       // throw err;
