@@ -12,6 +12,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { ActionCreator } from 'store/action';
 import { AuthorizationStatus } from './const/const';
 import { fetchPlacesList, checkAuth } from 'store/api-actions';
+import { redirect } from './store/middlewares/redirect';
 
 const COUNT_COMMENTS = 1;
 const COUNT_CARD_OFFERS_NEARBY = 3;
@@ -28,7 +29,10 @@ const api = createAPI(() =>
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect)
+  )
 );
 
 Promise.all([store.dispatch(fetchPlacesList()), store.dispatch(checkAuth())])

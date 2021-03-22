@@ -49,7 +49,7 @@ class Main extends PureComponent {
                     >
                       <div
                         className="header__avatar-wrapper user__avatar-wrapper"
-                        style={{ backgroundImage: 'url(' + avatarUrl + ')' }}
+                        style={{ backgroundImage: `url(${avatarUrl})` }}
                       ></div>
                       <span className="header__user-name user__name">
                         {email}

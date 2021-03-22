@@ -13,7 +13,6 @@ export const checkAuth = () => (dispatch, _getState, api) =>
   api
     .get(`/login`)
     .then(({ data }) => {
-      console.log(data);
       dispatch(ActionCreator.requereAuthorization(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.loadUserData(serverAdapter(data)));
     })
@@ -31,4 +30,5 @@ export const login = ({ login: email, password: password }) => (
     .post(`/login`, { email, password })
     .then(() =>
       dispatch(ActionCreator.requereAuthorization(AuthorizationStatus.AUTH))
-    );
+    )
+    .then(() => dispatch(ActionCreator.redirectToRoute(`/`)));
