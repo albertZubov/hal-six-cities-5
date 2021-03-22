@@ -4,6 +4,8 @@ export const ActionType = {
   CITY_ID: `CITY_ID `,
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
   LOAD_OFFERS: 'LOAD_OFFERS',
+  LOAD_USER_DATA: 'LOAD_USER_DATA',
+  REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
 };
 
 export const ActionCreator = {
@@ -30,5 +32,15 @@ export const ActionCreator = {
   loadingHotels: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
+  }),
+
+  loadUserData: (userData) => ({
+    type: ActionType.LOAD_USER_DATA,
+    payload: userData,
+  }),
+
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };

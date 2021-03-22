@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
 import { connect } from 'react-redux';
-import { getActiveCityID } from 'components/store/selectors';
+import { getActiveCityID } from 'store/selectors';
 
 // Отрисовка маркера
 const icon = leaflet.icon({

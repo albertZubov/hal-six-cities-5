@@ -6,7 +6,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import PlacesList, { ListType } from '../places-list/places-list';
 import withAddComment from '../../hocs/with-add-comment';
-import { convertNumberToPercent } from '../../utils/utils';
+import { convertNumberToPercent } from 'utils/utils';
 
 const AddCommentWrapped = withAddComment(AddComment);
 class Room extends PureComponent {

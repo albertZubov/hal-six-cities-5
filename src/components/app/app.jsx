@@ -1,26 +1,30 @@
 import React from 'react';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import { propsOffers, propsComment } from '../../props/props';
+import { AppRoute } from '../../const/const';
+import PrivateRoute from 'components/private-route/private-route';
+import browserHistory from '../../browser-history';
 
 const App = (props) => {
   const { offers, offersNearby, comments } = props;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <Favorites offers={offers} />}
+        />
         <Route exact path="/" render={() => <Main />} />
         <Route exact path="/login">
           <SignIn />
         </Route>
-        <Route exact path="/favorites">
-          <Favorites offers={offers} />
-        </Route>
-
         <Route exact path="/offer/:id">
           {({ match }) => (
             <Room

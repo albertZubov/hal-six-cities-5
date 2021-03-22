@@ -4,9 +4,9 @@ import PlaceCard from '../place-card/place-card';
 import { propsOffers } from '../../props/props';
 import cl from 'classnames';
 import { connect } from 'react-redux';
-import { sortOffer } from '../../utils/utils';
-import { ActionCreator } from '../store/action';
-import { getActiveTypeSort } from 'components/store/selectors';
+import { sortOffer } from 'utils/utils';
+import { ActionCreator } from 'store/action';
+import { getActiveTypeSort } from 'store/selectors';
 
 export const ListType = {
   MAIN: 'MAIN',

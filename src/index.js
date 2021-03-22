@@ -2,16 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import { getOffer, getComment } from './mocks/data';
-import { createArrElements } from './utils/utils';
+import { createArrElements } from 'utils/utils';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import rootReducer from './components/store/reducers/root-reducer';
+import rootReducer from 'store/reducers/root-reducer';
 import { createAPI } from './services/api';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { ActionCreator } from './components/store/action';
+import { ActionCreator } from 'store/action';
 import { AuthorizationStatus } from './const/const';
-import { fetchPlacesList, checkAuth } from './components/store/api-actions';
+import { fetchPlacesList, checkAuth } from 'store/api-actions';
+import { redirect } from './store/middlewares/redirect';
 
 const COUNT_COMMENTS = 1;
 const COUNT_CARD_OFFERS_NEARBY = 3;
@@ -28,7 +29,10 @@ const api = createAPI(() =>
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect)
+  )
 );
 
 Promise.all([store.dispatch(fetchPlacesList()), store.dispatch(checkAuth())])

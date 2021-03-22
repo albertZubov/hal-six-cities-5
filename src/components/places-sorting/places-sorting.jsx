@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import cl from 'classnames';
 import { connect } from 'react-redux';
-import { ActionCreator } from '../store/action';
+import { ActionCreator } from 'store/action';
 import { BtnSortType, BtnSortTitle } from 'const/const';
 import PropTypes from 'prop-types';
-import { getActiveTypeSort } from 'components/store/selectors';
+import { getActiveTypeSort } from 'store/selectors';
 
 class PlacesSorting extends PureComponent {
   constructor(props) {
