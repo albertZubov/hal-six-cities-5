@@ -19,6 +19,14 @@ export const AuthorizationStatus = {
 
 export const AppRoute = {
   ROOT: '/',
+  LOGIN: '/login',
+  FAVORITES: '/favorites',
+  HOTELS: '/hotels',
+  COMMENTS: '/comments/',
+};
+
+export const AppClient = {
+  ROOT: '/',
   FAVORITES: '/favorites',
   OFFER_ID: '/offer/:id',
   LOGIN: '/login',

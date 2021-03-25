@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { getDate } from 'utils/utils';
+import { convertNumberToPercent, getDate } from 'utils/utils';
 import PropTypes from 'prop-types';
 import { propsComment } from '../../props/props';
 
@@ -24,7 +24,9 @@ class ReviewsItem extends PureComponent {
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{ width: rating + '%' }}></span>
+              <span
+                style={{ width: convertNumberToPercent(rating) + `%` }}
+              ></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

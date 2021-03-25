@@ -6,12 +6,12 @@ import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import { propsOffers, propsComment } from '../../props/props';
-import { AppRoute } from '../../const/const';
+import { AppRoute, AppClient } from '../../const/const';
 import PrivateRoute from 'components/private-route/private-route';
 import browserHistory from '../../browser-history';
 
 const App = (props) => {
-  const { offers, offersNearby, comments } = props;
+  const { offers, offersNearby } = props;
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -21,16 +21,15 @@ const App = (props) => {
           path={AppRoute.FAVORITES}
           render={() => <Favorites offers={offers} />}
         />
-        <Route exact path="/" render={() => <Main />} />
-        <Route exact path="/login">
+        <Route exact path={AppClient.ROOT} render={() => <Main />} />
+        <Route exact path={AppClient.LOGIN}>
           <SignIn />
         </Route>
-        <Route exact path="/offer/:id">
+        <Route exact path={AppClient.OFFER_ID}>
           {({ match }) => (
             <Room
               offer={offers.find((el) => el.id === +match.params.id)}
               offersNearby={offersNearby}
-              comments={comments}
             />
           )}
         </Route>

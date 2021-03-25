@@ -4,6 +4,7 @@ import { ActionType } from '../action';
 const loadData = () => {
   const initialState = {
     offers: [],
+    comments: [],
   };
 
   return (state = initialState, action) => {
@@ -11,6 +12,10 @@ const loadData = () => {
       case ActionType.LOAD_OFFERS:
         return extend(state, {
           offers: action.payload,
+        });
+      case ActionType.LOAD_COMMENTS:
+        return extend(state, {
+          comments: action.payload,
         });
     }
 

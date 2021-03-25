@@ -1,15 +1,30 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { propsOffers, propsComment } from '../../props/props';
+import { propsOffers, propsComment, propsUserData } from '../../props/props';
 import AddComment from '../add-comments/add-comment';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import PlacesList, { ListType } from '../places-list/places-list';
 import withAddComment from '../../hocs/with-add-comment';
 import { convertNumberToPercent } from 'utils/utils';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { AppClient } from 'const/const';
+import { commentGet } from '../../store/api-actions';
+import { getCommentsData, getUserData } from 'store/selectors';
 
 const AddCommentWrapped = withAddComment(AddComment);
 class Room extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    const { id } = this.props.offer;
+    const { loadComments } = this.props;
+    loadComments(id);
+  }
+
   render() {
     const {
       title,
@@ -23,9 +38,10 @@ class Room extends PureComponent {
       goods,
       host,
       images,
+      id,
     } = this.props.offer;
-    console.log(this.props.offer);
     const { offersNearby, comments } = this.props;
+    const { email, avatarUrl } = this.props.userData;
 
     return (
       <div className="page">
@@ -46,15 +62,18 @@ class Room extends PureComponent {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <a
+                    <Link
+                      to={AppClient.FAVORITES}
                       className="header__nav-link header__nav-link--profile"
-                      href="#"
                     >
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                      <div
+                        className="header__avatar-wrapper user__avatar-wrapper"
+                        style={{ backgroundImage: `url(${avatarUrl})` }}
+                      ></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {email}
                       </span>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
@@ -66,8 +85,8 @@ class Room extends PureComponent {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {images.map((image, id) => (
-                  <div className="property__image-wrapper" key={id}>
+                {images.map((image, index) => (
+                  <div className="property__image-wrapper" key={index}>
                     <img
                       className="property__image"
                       src={image}
@@ -130,8 +149,8 @@ class Room extends PureComponent {
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
-                    {goods.map((elem, id) => (
-                      <li className="property__inside-item" key={id}>
+                    {goods.map((elem, index) => (
+                      <li className="property__inside-item" key={index}>
                         {elem}
                       </li>
                     ))}
@@ -167,10 +186,11 @@ class Room extends PureComponent {
                 </div>
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">
-                    Reviews &middot; <span className="reviews__amount">1</span>
+                    Reviews &middot;{' '}
+                    <span className="reviews__amount">{comments.length}</span>
                   </h2>
                   <ReviewsList comments={comments} />
-                  <AddCommentWrapped />
+                  <AddCommentWrapped id={id} />
                 </section>
               </div>
             </div>
@@ -196,6 +216,17 @@ Room.propTypes = {
   offer: PropTypes.shape(propsOffers),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
+  userData: PropTypes.shape(propsUserData),
+  loadComments: PropTypes.func.isRequired,
 };
 
-export default Room;
+const mapStateToProps = (state) => ({
+  userData: getUserData(state),
+  comments: getCommentsData(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadComments: (id) => dispatch(commentGet(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

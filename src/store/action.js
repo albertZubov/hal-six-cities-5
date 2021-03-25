@@ -6,6 +6,7 @@ export const ActionType = {
   LOAD_OFFERS: 'LOAD_OFFERS',
   LOAD_USER_DATA: 'LOAD_USER_DATA',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
+  LOAD_COMMENTS: 'LOAD_COMMENTS',
 };
 
 export const ActionCreator = {
@@ -42,5 +43,10 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+
+  loadComments: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments,
   }),
 };

@@ -2,11 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import PlaceCardFavorites from '../place-card-favorites/place-card-favorites';
 import { getCountRandom, city } from '../../mocks/data';
-import { propsOffers } from '../../props/props';
+import { propsOffers, propsUserData } from '../../props/props';
+import { connect } from 'react-redux';
+import { getUserData } from 'store/selectors';
 
 class Favorites extends PureComponent {
   render() {
     const { offers } = this.props;
+    const { email, avatarUrl } = this.props.userData;
     return (
       <div className="page">
         <header className="header">
@@ -26,13 +29,13 @@ class Favorites extends PureComponent {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <a
-                      className="header__nav-link header__nav-link--profile"
-                      href="#"
-                    >
-                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <a className="header__nav-link header__nav-link--profile">
+                      <div
+                        className="header__avatar-wrapper user__avatar-wrapper"
+                        style={{ backgroundImage: `url(${avatarUrl})` }}
+                      ></div>
                       <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                        {email}
                       </span>
                     </a>
                   </li>
@@ -92,6 +95,11 @@ class Favorites extends PureComponent {
 
 Favorites.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  userData: PropTypes.shape(propsUserData),
 };
 
-export default Favorites;
+const mapStateToProps = (state) => ({
+  userData: getUserData(state),
+});
+
+export default connect(mapStateToProps)(Favorites);
