@@ -10,8 +10,8 @@ import { convertNumberToPercent } from 'utils/utils';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppClient } from 'const/const';
-import { commentGet } from '../../store/api-actions';
-import { getCommentsData, getUserData } from 'store/selectors';
+import { commentGet, fetchNearbyList } from '../../store/api-actions';
+import { getCommentsData, getUserData, getHotelsNearby } from 'store/selectors';
 
 const AddCommentWrapped = withAddComment(AddComment);
 class Room extends PureComponent {
@@ -20,9 +20,9 @@ class Room extends PureComponent {
   }
 
   componentDidMount() {
-    const { id } = this.props.offer;
-    const { loadComments } = this.props;
-    loadComments(id);
+    const { loadComments, loadingHotelsNearby } = this.props;
+    loadComments();
+    loadingHotelsNearby();
   }
 
   render() {
@@ -194,9 +194,11 @@ class Room extends PureComponent {
                 </section>
               </div>
             </div>
-            <section className="property__map map">
-              <Map offers={offersNearby} />
-            </section>
+            {offersNearby.length && (
+              <section className="property__map map">
+                <Map offers={offersNearby} />
+              </section>
+            )}
           </section>
           <div className="container">
             <section className="near-places places">
@@ -218,15 +220,18 @@ Room.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
   userData: PropTypes.shape(propsUserData),
   loadComments: PropTypes.func.isRequired,
+  loadingHotelsNearby: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userData: getUserData(state),
   comments: getCommentsData(state),
+  offersNearby: getHotelsNearby(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadComments: (id) => dispatch(commentGet(id)),
+const mapDispatchToProps = (dispatch, { offer }) => ({
+  loadComments: () => dispatch(commentGet(offer.id)),
+  loadingHotelsNearby: () => dispatch(fetchNearbyList(offer.id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Room);

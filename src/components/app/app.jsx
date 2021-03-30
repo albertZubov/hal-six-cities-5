@@ -5,13 +5,13 @@ import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
-import { propsOffers, propsComment } from '../../props/props';
+import { propsOffers } from '../../props/props';
 import { AppRoute, AppClient } from '../../const/const';
 import PrivateRoute from 'components/private-route/private-route';
 import browserHistory from '../../browser-history';
 
 const App = (props) => {
-  const { offers, offersNearby } = props;
+  const { offers } = props;
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -27,10 +27,7 @@ const App = (props) => {
         </Route>
         <Route exact path={AppClient.OFFER_ID}>
           {({ match }) => (
-            <Room
-              offer={offers.find((el) => el.id === +match.params.id)}
-              offersNearby={offersNearby}
-            />
+            <Room offer={offers.find((el) => el.id === +match.params.id)} />
           )}
         </Route>
       </Switch>
@@ -40,8 +37,6 @@ const App = (props) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
 };
 
 export default App;

@@ -4,6 +4,7 @@ export const ActionType = {
   CITY_ID: `CITY_ID `,
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
   LOAD_OFFERS: 'LOAD_OFFERS',
+  LOAD_OFFERS_NEARBY: 'LOAD_OFFERS_NEARBY',
   LOAD_USER_DATA: 'LOAD_USER_DATA',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
   LOAD_COMMENTS: 'LOAD_COMMENTS',
@@ -32,6 +33,11 @@ export const ActionCreator = {
 
   loadingHotels: (offers) => ({
     type: ActionType.LOAD_OFFERS,
+    payload: offers,
+  }),
+
+  loadingHotelsNearby: (offers) => ({
+    type: ActionType.LOAD_OFFERS_NEARBY,
     payload: offers,
   }),
 

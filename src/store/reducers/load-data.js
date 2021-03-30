@@ -4,6 +4,7 @@ import { ActionType } from '../action';
 const loadData = () => {
   const initialState = {
     offers: [],
+    offersNearby: [],
     comments: [],
   };
 
@@ -16,6 +17,11 @@ const loadData = () => {
       case ActionType.LOAD_COMMENTS:
         return extend(state, {
           comments: action.payload,
+        });
+
+      case ActionType.LOAD_OFFERS_NEARBY:
+        return extend(state, {
+          offersNearby: action.payload,
         });
     }
 

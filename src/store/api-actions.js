@@ -9,6 +9,12 @@ export const fetchPlacesList = () => (dispatch, _getState, api) =>
     return formatData;
   });
 
+export const fetchNearbyList = (id) => (dispatch, _getState, api) =>
+  api.get(AppRoute.HOTELS + id + `/nearby`).then(({ data }) => {
+    const formatData = formattingDataServerToClinet(data);
+    return dispatch(ActionCreator.loadingHotelsNearby(formatData));
+  });
+
 export const checkAuth = () => (dispatch, _getState, api) =>
   api
     .get(AppRoute.LOGIN)
@@ -28,7 +34,8 @@ export const login = ({ login: email, password: password }) => (
 ) =>
   api
     .post(AppRoute.LOGIN, { email, password })
-    .then(() =>
+    .then(
+      ({ data }) => dispatch(ActionCreator.loadUserData(serverAdapter(data))),
       dispatch(ActionCreator.requereAuthorization(AuthorizationStatus.AUTH))
     )
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)));

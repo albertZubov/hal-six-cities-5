@@ -21,7 +21,7 @@ export const AppRoute = {
   ROOT: '/',
   LOGIN: '/login',
   FAVORITES: '/favorites',
-  HOTELS: '/hotels',
+  HOTELS: '/hotels/',
   COMMENTS: '/comments/',
 };
 

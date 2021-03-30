@@ -65,7 +65,3 @@ export const serverAdapter = (obj) =>
 
 export const formattingDataServerToClinet = (arrData) =>
   arrData.map((obj) => serverAdapter(obj));
-
-// export const formattingDataClientToServer = ( ) => {
-
-// }
