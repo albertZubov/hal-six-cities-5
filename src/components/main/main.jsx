@@ -13,6 +13,7 @@ import {
   getPlacesList,
   getUserData,
 } from 'store/selectors';
+import { AppClient } from 'const/const';
 
 class Main extends PureComponent {
   render() {
@@ -44,7 +45,7 @@ class Main extends PureComponent {
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
                     <Link
-                      to="/favorites"
+                      to={AppClient.FAVORITES}
                       className="header__nav-link header__nav-link--profile"
                     >
                       <div

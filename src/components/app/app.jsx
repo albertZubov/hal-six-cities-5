@@ -5,13 +5,13 @@ import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
-import { propsOffers, propsComment } from '../../props/props';
-import { AppRoute } from '../../const/const';
+import { propsOffers } from '../../props/props';
+import { AppRoute, AppClient } from '../../const/const';
 import PrivateRoute from 'components/private-route/private-route';
 import browserHistory from '../../browser-history';
 
 const App = (props) => {
-  const { offers, offersNearby, comments } = props;
+  const { offers } = props;
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -21,17 +21,13 @@ const App = (props) => {
           path={AppRoute.FAVORITES}
           render={() => <Favorites offers={offers} />}
         />
-        <Route exact path="/" render={() => <Main />} />
-        <Route exact path="/login">
+        <Route exact path={AppClient.ROOT} render={() => <Main />} />
+        <Route exact path={AppClient.LOGIN}>
           <SignIn />
         </Route>
-        <Route exact path="/offer/:id">
+        <Route exact path={AppClient.OFFER_ID}>
           {({ match }) => (
-            <Room
-              offer={offers.find((el) => el.id === +match.params.id)}
-              offersNearby={offersNearby}
-              comments={comments}
-            />
+            <Room offer={offers.find((el) => el.id === +match.params.id)} />
           )}
         </Route>
       </Switch>
@@ -41,8 +37,6 @@ const App = (props) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
-  comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
 };
 
 export default App;

@@ -1,4 +1,5 @@
 import React, { createRef, PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../../store/api-actions';
 
@@ -26,7 +27,7 @@ class SignIn extends PureComponent {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link" href="main.html">
+                <a className="header__logo-link" href="/">
                   <img
                     className="header__logo"
                     src="img/logo.svg"
@@ -106,6 +107,10 @@ class SignIn extends PureComponent {
     );
   }
 }
+
+SignIn.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (authData) => dispatch(login(authData)),
