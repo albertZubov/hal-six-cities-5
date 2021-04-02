@@ -45,7 +45,7 @@ export const propsComment = {
 export const propsUserData = {
   avatarUrl: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  isPro: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  isPro: PropTypes.bool,
+  name: PropTypes.string,
 };

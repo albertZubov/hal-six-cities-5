@@ -22,7 +22,7 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(redirect)
+    applyMiddleware(redirect) 
   )
 );
 

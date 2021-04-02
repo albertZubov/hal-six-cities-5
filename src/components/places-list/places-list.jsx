@@ -54,4 +54,5 @@ const mapDispatchToProps = (dispatch) => ({
   getCityID: (payload) => dispatch(ActionCreator.getCityID(payload)),
 });
 
+export { PlacesList };
 export default connect(mapStateToProps, mapDispatchToProps)(PlacesList);

@@ -7,12 +7,7 @@ import PlacesListContainer from '../places-list-container/places-list-container'
 import PlacesListEmpty from '../places-list-empty/places-list-empty';
 import cl from 'classnames';
 import { propsUserData } from '../../props/props';
-import {
-  getOffers,
-  getActiveCity,
-  getPlacesList,
-  getUserData,
-} from 'store/selectors';
+import { getOffers, getPlacesList, getUserData } from 'store/selectors';
 import { AppClient } from 'const/const';
 
 class Main extends PureComponent {
@@ -82,16 +77,15 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   offers: PropTypes.array.isRequired,
-  activeCity: PropTypes.string.isRequired,
   activeOffer: PropTypes.array.isRequired,
   userData: PropTypes.shape(propsUserData),
 };
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
-  activeCity: getActiveCity(state),
   activeOffer: getPlacesList(state),
   userData: getUserData(state),
 });
 
+export { Main };
 export default connect(mapStateToProps)(Main);
