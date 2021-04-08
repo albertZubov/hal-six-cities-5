@@ -42,7 +42,7 @@ class PlacesList extends PureComponent {
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   type: PropTypes.string,
-  activeTypeSort: PropTypes.string.isRequired,
+  activeTypeSort: PropTypes.string,
   getCityID: PropTypes.func.isRequired,
 };
 

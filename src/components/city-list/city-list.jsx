@@ -5,6 +5,7 @@ import { ActionCreator } from '../../store/action';
 import cl from 'classnames';
 import { city } from '../../mocks/data';
 import { getActiveCity } from '../../store/selectors';
+import { login } from 'store/api-actions';
 
 class CityList extends PureComponent {
   render() {
@@ -53,7 +54,5 @@ const mapDispatchToProps = (dispatch) => ({
   changeCity: (payload) => dispatch(ActionCreator.changeCity(payload)),
 });
 
-// TODO замокать сторе
-// edux-mock-store
 export { CityList };
 export default connect(mapStateToProps, mapDispatchToProps)(CityList);

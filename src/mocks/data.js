@@ -52,12 +52,12 @@ export const getOffer = () => ({
     // is_pro: true,
     name: 'Angelina',
   },
-  id: Math.random().toString().split('.')[1],
+  id: +Math.random().toString().split('.')[1],
   images: [
     'img/apartment-01.jpg',
     'img/apartment-02.jpg',
     'img/apartment-03.jpg',
-  ][getCountRandom(0, 2)],
+  ],
   isFavorite: getRandomBoolean(),
   isPremium: getRandomBoolean(),
   location: {
