@@ -12,7 +12,7 @@ import { AppClient } from 'const/const';
 
 class Main extends PureComponent {
   render() {
-    const { offers, activeOffer, onSignInButtonClick } = this.props;
+    const { offers, activeOffer } = this.props;
     const { email, avatarUrl } = this.props.userData;
     const placesList = offers.length ? (
       <PlacesListContainer activeOffer={activeOffer} />
@@ -21,7 +21,7 @@ class Main extends PureComponent {
     );
 
     return (
-      <div className="page page--gray page--main" onClick={onSignInButtonClick}>
+      <div className="page page--gray page--main">
         <header className="header">
           <div className="container">
             <div className="header__wrapper">

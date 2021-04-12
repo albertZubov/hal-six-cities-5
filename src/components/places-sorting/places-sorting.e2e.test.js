@@ -5,12 +5,9 @@ import { PlacesSorting } from './places-sorting';
 
 configure({ adapter: new Adapter() });
 
-test('click on button "Sort by"', () => {
+test('sorting offers on the Main page', () => {
   const activeTypeSort = 'POPULAR';
   const handleSortingType = jest.fn();
-  const mockState = {
-    isOpen: true,
-  };
 
   const wrapper = mount(
     <PlacesSorting
@@ -20,5 +17,6 @@ test('click on button "Sort by"', () => {
   );
 
   wrapper.find(`.places__sorting-type`).simulate(`click`);
-  expect(mockState).toEqual({ isOpen: true });
+  wrapper.state('isOpen');
+  // expect(mockState).toEqual({ isOpen: true });
 });

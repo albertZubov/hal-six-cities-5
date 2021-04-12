@@ -5,7 +5,7 @@ import { PlacesSorting } from './places-sorting';
 const activeTypeSort = 'POPULAR';
 const handleSortingType = () => {};
 
-test('click on button "Sort by"', () => {
+test('sorting offers on the Main page', () => {
   const tree = renderer
     .create(
       <PlacesSorting
