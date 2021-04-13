@@ -42,7 +42,7 @@ class PlacesList extends PureComponent {
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   type: PropTypes.string,
-  activeTypeSort: PropTypes.string.isRequired,
+  activeTypeSort: PropTypes.string,
   getCityID: PropTypes.func.isRequired,
 };
 
@@ -54,4 +54,5 @@ const mapDispatchToProps = (dispatch) => ({
   getCityID: (payload) => dispatch(ActionCreator.getCityID(payload)),
 });
 
+export { PlacesList };
 export default connect(mapStateToProps, mapDispatchToProps)(PlacesList);

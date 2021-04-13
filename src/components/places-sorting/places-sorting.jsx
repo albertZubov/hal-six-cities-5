@@ -16,7 +16,6 @@ class PlacesSorting extends PureComponent {
 
   render() {
     const { sortingType, activeTypeSort } = this.props;
-
     const btnSortToArray = Object.keys(BtnSortType);
 
     return (
@@ -67,7 +66,7 @@ class PlacesSorting extends PureComponent {
 
 PlacesSorting.propTypes = {
   sortingType: PropTypes.func.isRequired,
-  activeTypeSort: PropTypes.string.isRequired,
+  activeTypeSort: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
@@ -77,4 +76,5 @@ const mapDispatchToProps = (dispatch) => ({
   sortingType: (payload) => dispatch(ActionCreator.sortingType(payload)),
 });
 
+export { PlacesSorting };
 export default connect(mapStateToProps, mapDispatchToProps)(PlacesSorting);

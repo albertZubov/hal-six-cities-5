@@ -7,7 +7,7 @@ export const propsOffers = {
   images: PropTypes.array.isRequired,
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
-  maxAdults: PropTypes.number.isRequired,
+  maxAdults: PropTypes.number,
   previewImage: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
@@ -45,7 +45,7 @@ export const propsComment = {
 export const propsUserData = {
   avatarUrl: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  isPro: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  isPro: PropTypes.bool,
+  name: PropTypes.string,
 };

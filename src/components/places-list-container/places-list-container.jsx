@@ -40,4 +40,5 @@ const mapStateToProps = (state) => ({
   activeCity: getActiveCity(state),
 });
 
+export { PlacesListContainer };
 export default connect(mapStateToProps)(PlacesListContainer);
