@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import PropTypes from 'prop-types';
@@ -18,29 +18,22 @@ const iconHover = leaflet.icon({
   iconSize: [30, 30],
 });
 
-class Map extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.mapRef = React.createRef();
-    this.map = null;
-  }
+const Map = ({ offers, activeCityID }) => {
+  const [firstOffer] = offers;
+  const { latitude, longitude, zoom } = firstOffer.city.location;
+  const mapRef = useRef();
+  const [map, setMap] = useState(null);
+  const locationMap = [latitude, longitude];
 
-  componentDidMount() {
-    const { offers } = this.props;
-    const [firstOffer] = offers;
-
-    const { latitude, longitude, zoom } = firstOffer.city.location;
-
-    // Отрисовка карты
-    const locationMap = [latitude, longitude];
-    this.map = leaflet.map(this.mapRef.current, {
+  useEffect(() => {
+    const newMap = leaflet.map(mapRef.current, {
       center: locationMap,
       zoom,
       zoomControl: false,
       marker: true,
     });
+    newMap.setView(locationMap, zoom);
 
-    this.map.setView(locationMap, zoom);
     leaflet
       .tileLayer(
         `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`,
@@ -49,49 +42,38 @@ class Map extends PureComponent {
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         }
       )
-      .addTo(this.map);
+      .addTo(newMap);
+    setMap(newMap);
 
-    offers.map((el) => {
-      const offerCords = [el.location.latitude, el.location.longitude];
-      return leaflet.marker(offerCords, { icon: icon }).addTo(this.map);
-    });
-  }
+    return () => {
+      mapRef.current.remove();
+    };
+  }, []);
 
-  componentDidUpdate() {
-    const { offers, activeCityID } = this.props;
-    const [firstOffer] = offers;
+  useEffect(() => {
+    if (!map) return;
 
-    const { latitude, longitude, zoom } = firstOffer.city.location;
-
-    // Отрисовка карты
-    const locationMap = [latitude, longitude];
-
-    this.map.eachLayer((layer) => {
+    map.eachLayer((layer) => {
       if (layer.options.icon) {
         layer.remove();
       }
     });
 
-    this.map.setView(locationMap, zoom);
-
     offers.forEach((offer) => {
-      const {
-        location: { latitude, longitude },
-        id,
-      } = offer;
+      const { id } = offer;
       const iconActive = id === activeCityID ? iconHover : icon;
+      const offerCords = [offer.location.latitude, offer.location.longitude];
       leaflet
-        .marker([latitude, longitude], { icon: iconActive })
-        .addTo(this.map);
+        .marker(offerCords, { icon: iconActive })
+        .addTo(map)
+        .bindPopup(offer.title);
     });
-  }
 
-  render() {
-    return (
-      <div ref={this.mapRef} style={{ width: '100%', height: '100%' }}></div>
-    );
-  }
-}
+    map.setView(locationMap, zoom);
+  }, [activeCityID, map, offers]);
+
+  return <div ref={mapRef} style={{ width: '100%', height: '100%' }}></div>;
+};
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),

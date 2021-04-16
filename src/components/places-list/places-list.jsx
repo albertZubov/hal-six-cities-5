@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 import { propsOffers } from '../../props/props';
@@ -13,31 +13,29 @@ export const ListType = {
   NEARBY: 'NEARBY',
 };
 
-class PlacesList extends PureComponent {
-  render() {
-    const { offers, type = ListType.MAIN, activeTypeSort } = this.props;
-    const sortedOffers = sortOffer(offers, activeTypeSort);
+const PlacesList = (props) => {
+  const { offers, type = ListType.MAIN, activeTypeSort } = props;
+  const sortedOffers = sortOffer(offers, activeTypeSort);
 
-    return (
-      <div
-        className={cl('places__list', {
-          'cities__places-list tabs__content': type === ListType.MAIN,
-          'near-places__list': type === ListType.NEARBY,
-        })}
-      >
-        {sortedOffers.map((offer) => (
-          <PlaceCard
-            offer={offer}
-            key={offer.id}
-            typeCard={type}
-            onActiveCard={this.props.getCityID}
-            onActiveCardLeave={this.props.getCityID}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div
+      className={cl('places__list', {
+        'cities__places-list tabs__content': type === ListType.MAIN,
+        'near-places__list': type === ListType.NEARBY,
+      })}
+    >
+      {sortedOffers.map((offer) => (
+        <PlaceCard
+          offer={offer}
+          key={offer.id}
+          typeCard={type}
+          onActiveCard={props.getCityID}
+          onActiveCardLeave={props.getCityID}
+        />
+      ))}
+    </div>
+  );
+};
 
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
