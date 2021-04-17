@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { commentPost } from '../../store/api-actions';
+
+const InputName = {
+  rating: 'rating',
+  review: 'review',
+};
 
 const AddComment = (props) => {
   const titleLabel = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
-  const { handleSubmit, handleFieldChange } = props;
+  const { id, onSubmit } = props;
+
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState('');
+
+  const handleSubmit = useCallback((evt) => {
+    evt.preventDefault();
+    onSubmit({
+      description: review,
+      rating,
+      id,
+    });
+  });
+
+  const handleFieldChange = useCallback((evt) => {
+    evt.preventDefault();
+    const { value, name } = evt.target;
+
+    switch (name) {
+      case InputName.rating:
+        setRating(value);
+        break;
+      case InputName.review:
+        setReview(value);
+        break;
+    }
+  });
 
   return (
     <form
@@ -16,18 +49,18 @@ const AddComment = (props) => {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {titleLabel.map((el, id, arr) => (
-          <React.Fragment key={id}>
+        {titleLabel.map((el, index, arr) => (
+          <React.Fragment key={index}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              value={arr.length - id}
-              id={arr.length - id + '-stars'}
+              value={arr.length - index}
+              id={arr.length - index + '-stars'}
               type="radio"
               onChange={handleFieldChange}
             />
             <label
-              htmlFor={arr.length - id + '-stars'}
+              htmlFor={arr.length - index + '-stars'}
               className="reviews__rating-label form__rating-label"
               title={el}
             >
@@ -64,8 +97,12 @@ const AddComment = (props) => {
 };
 
 AddComment.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  handleFieldChange: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-export default AddComment;
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (comment) => dispatch(commentPost(comment)),
+});
+
+export default connect(null, mapDispatchToProps)(AddComment);
