@@ -5,18 +5,29 @@ import { Link } from 'react-router-dom';
 import { ListType } from '../places-list/places-list';
 import cl from 'classnames';
 import { convertNumberToPercent } from 'utils/utils';
+import { connect } from 'react-redux';
+import { favoritePost } from 'store/api-actions';
+import { getAuthorizationStatus } from 'store/selectors';
+import PrivateComponent from 'components/private-component/private-component';
 
 const PlaceCard = (props) => {
+  const {
+    onActiveCard,
+    onActiveCardLeave,
+    typeCard,
+    setFavoritesOffers,
+    offer,
+  } = props;
   const {
     title,
     type,
     isPremium,
+    isFavorite,
     price,
     rating,
     previewImage,
     id,
-  } = props.offer;
-  const { onActiveCard, onActiveCardLeave, typeCard } = props;
+  } = offer;
 
   return (
     <article
@@ -53,16 +64,28 @@ const PlaceCard = (props) => {
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
-            <span className="place-card__price-text">
-              {/* &#47;&nbsp;{tariff} */}
-            </span>
+            <span className="place-card__price-text"></span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <PrivateComponent
+            render={() => (
+              <button
+                className={cl('place-card__bookmark-button button', {
+                  'place-card__bookmark-button--active': isFavorite,
+                })}
+                type="button"
+                onClick={setFavoritesOffers}
+              >
+                <svg
+                  className="place-card__bookmark-icon"
+                  width="18"
+                  height="19"
+                >
+                  <use xlinkHref="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
+            )}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -86,6 +109,16 @@ PlaceCard.propTypes = {
   onActiveCardLeave: PropTypes.func.isRequired,
   offer: PropTypes.shape(propsOffers),
   typeCard: PropTypes.string.isRequired,
+  setFavoritesOffers: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export default PlaceCard;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch, { offer }) => ({
+  setFavoritesOffers: () => dispatch(favoritePost(offer.id, !offer.isFavorite)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);

@@ -1,6 +1,10 @@
 import { ActionCreator } from 'store/action';
 import { AppRoute, AuthorizationStatus } from 'const/const';
-import { formattingDataServerToClinet, serverAdapter } from 'utils/utils';
+import {
+  formattingDataServerToClinet,
+  serverAdapter,
+  transformBoolIsNumber,
+} from 'utils/utils';
 
 export const fetchPlacesList = () => (dispatch, _getState, api) =>
   api.get(AppRoute.HOTELS).then(({ data }) => {
@@ -24,7 +28,7 @@ export const checkAuth = () => (dispatch, _getState, api) =>
     })
     .catch((err) => {
       // throw err;
-      console.log('meow');
+      console.log(err);
     });
 
 export const login = ({ login: email, password: password }) => (
@@ -56,4 +60,18 @@ export const commentGet = (id) => (dispatch, _getState, api) =>
     .get(AppRoute.COMMENTS + id)
     .then(({ data }) =>
       dispatch(ActionCreator.loadComments(data.map(serverAdapter)))
+    );
+
+export const favoritesGet = () => (dispatch, _getState, api) =>
+  api
+    .get(AppRoute.FAVORITES)
+    .then(({ data }) => dispatch(ActionCreator.loadFavoritesOffers(data)));
+
+export const favoritePost = (offerID, status) => (dispatch, _getState, api) =>
+  api
+    .post(
+      AppRoute.FAVORITES + '/' + offerID + '/' + transformBoolIsNumber(status)
+    )
+    .then(({ data }) =>
+      dispatch(ActionCreator.changeOfferFavorite(serverAdapter(data)))
     );

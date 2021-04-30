@@ -26,8 +26,8 @@ const PlacesList = (props) => {
     >
       {sortedOffers.map((offer) => (
         <PlaceCard
-          offer={offer}
           key={offer.id}
+          offer={offer}
           typeCard={type}
           onActiveCard={props.getCityID}
           onActiveCardLeave={props.getCityID}

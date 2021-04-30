@@ -8,21 +8,38 @@ import PlacesList, { ListType } from '../places-list/places-list';
 import { convertNumberToPercent } from 'utils/utils';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppClient } from 'const/const';
-import { commentGet, fetchNearbyList } from '../../store/api-actions';
-import { getCommentsData, getUserData, getHotelsNearby } from 'store/selectors';
+import { AppClient, AuthorizationStatus } from 'const/const';
+import {
+  commentGet,
+  favoritePost,
+  fetchNearbyList,
+} from '../../store/api-actions';
+import {
+  getCommentsData,
+  getUserData,
+  getHotelsNearby,
+  getOffer,
+  getAuthorizationStatus,
+} from 'store/selectors';
+import cl from 'classnames';
+import PrivateComponent from 'components/private-component/private-component';
 
 const Room = (props) => {
-  const { loadComments, loadingHotelsNearby } = props;
+  const {
+    loadComments,
+    loadingHotelsNearby,
+    offersNearby,
+    comments,
+    setFavoritesOffers,
+    offer,
+    authorizationStatus,
+  } = props;
 
-  useEffect(() => {
-    loadComments();
-    loadingHotelsNearby();
-  }, []);
-
+  const { email, avatarUrl } = props.userData;
   const {
     title,
     isPremium,
+    isFavorite,
     rating,
     type,
     bedrooms,
@@ -32,9 +49,12 @@ const Room = (props) => {
     host,
     images,
     id,
-  } = props.offer;
-  const { offersNearby, comments } = props;
-  const { email, avatarUrl } = props.userData;
+  } = offer;
+
+  useEffect(() => {
+    loadComments(id);
+    loadingHotelsNearby(id);
+  }, []);
 
   return (
     <div className="page">
@@ -73,7 +93,6 @@ const Room = (props) => {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -99,19 +118,26 @@ const Room = (props) => {
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <button
-                  className="property__bookmark-button button"
-                  type="button"
-                >
-                  <svg
-                    className="property__bookmark-icon"
-                    width="31"
-                    height="33"
-                  >
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <PrivateComponent
+                  render={() => (
+                    <button
+                      className={cl('property__bookmark-button button', {
+                        'property__bookmark-button--active': isFavorite,
+                      })}
+                      onClick={() => setFavoritesOffers(id, !isFavorite)}
+                      type="button"
+                    >
+                      <svg
+                        className="property__bookmark-icon"
+                        width="31"
+                        height="33"
+                      >
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
+                  )}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -181,7 +207,9 @@ const Room = (props) => {
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <ReviewsList comments={comments} />
-                <AddComment id={id} />
+                {authorizationStatus === AuthorizationStatus.AUTH && (
+                  <AddComment id={id} />
+                )}
               </section>
             </div>
           </div>
@@ -205,23 +233,31 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  offer: PropTypes.shape(propsOffers),
+  authorizationStatus: PropTypes.string.isRequired,
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   comments: PropTypes.arrayOf(PropTypes.shape(propsComment)),
   userData: PropTypes.shape(propsUserData),
   loadComments: PropTypes.func.isRequired,
   loadingHotelsNearby: PropTypes.func.isRequired,
+  setFavoritesOffers: PropTypes.func.isRequired,
+  offer: PropTypes.shape(propsOffers),
+  activeID: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { activeID }) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  offer: getOffer(state, activeID),
   userData: getUserData(state),
-  comments: getCommentsData(state),
+  comments: getCommentsData(state).sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  ),
   offersNearby: getHotelsNearby(state),
 });
 
-const mapDispatchToProps = (dispatch, { offer }) => ({
-  loadComments: () => dispatch(commentGet(offer.id)),
-  loadingHotelsNearby: () => dispatch(fetchNearbyList(offer.id)),
+const mapDispatchToProps = (dispatch) => ({
+  loadComments: (id) => dispatch(commentGet(id)),
+  loadingHotelsNearby: (id) => dispatch(fetchNearbyList(id)),
+  setFavoritesOffers: (id, favorite) => dispatch(favoritePost(id, favorite)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Room);

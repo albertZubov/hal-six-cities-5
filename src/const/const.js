@@ -20,14 +20,14 @@ export const AuthorizationStatus = {
 export const AppRoute = {
   ROOT: '/',
   LOGIN: '/login',
-  FAVORITES: '/favorites',
+  FAVORITES: '/favorite',
   HOTELS: '/hotels/',
   COMMENTS: '/comments/',
 };
 
 export const AppClient = {
   ROOT: '/',
-  FAVORITES: '/favorites',
+  FAVORITES: '/favorite',
   OFFER_ID: '/offer/:id',
   LOGIN: '/login',
 };

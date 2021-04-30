@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { propsOffers } from '../../props/props';
+import { convertNumberToPercent } from 'utils/utils';
+import { connect } from 'react-redux';
+import { favoritePost } from 'store/api-actions';
 
 const PlaceCardFavorites = (props) => {
-  const { title, type, price, rating, tariff, previewImage } = props.offer;
+  const { offer, setFavoritesOffers } = props;
+  const { title, type, price, rating, id, isFavorite, previewImage } = offer;
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -21,9 +25,10 @@ const PlaceCardFavorites = (props) => {
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
-            <span className="place-card__price-text">&#47;&nbsp;{tariff}</span>
+            {/* <span className="place-card__price-text">&#47;&nbsp;</span> */}
           </div>
           <button
+            onClick={() => setFavoritesOffers(id, !isFavorite)}
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
           >
@@ -35,7 +40,9 @@ const PlaceCardFavorites = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: rating + `%` }}></span>
+            <span
+              style={{ width: convertNumberToPercent(rating) + `%` }}
+            ></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -52,4 +59,8 @@ PlaceCardFavorites.propTypes = {
   offer: PropTypes.shape(propsOffers),
 };
 
-export default PlaceCardFavorites;
+const mapDispatchToProps = (dispatch) => ({
+  setFavoritesOffers: (id, favorite) => dispatch(favoritePost(id, favorite)),
+});
+
+export default connect(null, mapDispatchToProps)(PlaceCardFavorites);

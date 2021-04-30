@@ -10,25 +10,21 @@ import { AppRoute, AppClient } from '../../const/const';
 import PrivateRoute from 'components/private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const App = (props) => {
-  const { offers } = props;
-
+const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
-          render={() => <Favorites offers={offers} />}
+          render={() => <Favorites />}
         />
         <Route exact path={AppClient.ROOT} render={() => <Main />} />
         <Route exact path={AppClient.LOGIN}>
           <SignIn />
         </Route>
         <Route exact path={AppClient.OFFER_ID}>
-          {({ match }) => (
-            <Room offer={offers.find((el) => el.id === +match.params.id)} />
-          )}
+          {({ match }) => <Room activeID={+match.params.id} />}
         </Route>
       </Switch>
     </BrowserRouter>

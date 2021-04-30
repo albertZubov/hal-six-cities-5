@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCardFavorites from '../place-card-favorites/place-card-favorites';
-import { getCountRandom, city } from '../../mocks/data';
 import { propsOffers, propsUserData } from '../../props/props';
 import { connect } from 'react-redux';
-import { getUserData } from 'store/selectors';
+import { getOffers, getOffersFavorite, getUserData } from 'store/selectors';
 
 const Favorites = (props) => {
-  const { offers } = props;
-  const { email, avatarUrl } = props.userData;
+  const { offersFavorite, userData } = props;
+  const { email, avatarUrl } = userData;
+  const arrKeyCities = Object.keys(offersFavorite);
+
   return (
     <div className="page">
       <header className="header">
@@ -49,22 +50,20 @@ const Favorites = (props) => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {city.map((el, id) => {
+              {arrKeyCities.map((city, id) => {
                 return (
                   <li className="favorites__locations-items" key={id}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <a className="locations__item-link" href="#">
-                          <span>{el}</span>
+                          <span>{city}</span>
                         </a>
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {offers
-                        .slice(getCountRandom(1, 3), getCountRandom(3, 5))
-                        .map((offer, ind) => (
-                          <PlaceCardFavorites offer={offer} key={offer + ind} />
-                        ))}
+                      {offersFavorite[city].map((offer, ind) => (
+                        <PlaceCardFavorites offer={offer} key={ind} />
+                      ))}
                     </div>
                   </li>
                 );
@@ -89,11 +88,15 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
+  offersFavorite: PropTypes.shape(
+    PropTypes.arrayOf(PropTypes.shape(propsOffers))
+  ),
   userData: PropTypes.shape(propsUserData),
 };
 
 const mapStateToProps = (state) => ({
+  offersFavorite: getOffersFavorite(state),
+  offers: getOffers(state),
   userData: getUserData(state),
 });
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { commentPost } from '../../store/api-actions';
@@ -11,6 +11,7 @@ const InputName = {
 const AddComment = (props) => {
   const titleLabel = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
   const { id, onSubmit } = props;
+  const btnRef = useRef();
 
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
@@ -25,6 +26,7 @@ const AddComment = (props) => {
   });
 
   const handleFieldChange = useCallback((evt) => {
+    btnRef.current.disabled = true;
     evt.preventDefault();
     const { value, name } = evt.target;
 
@@ -35,6 +37,10 @@ const AddComment = (props) => {
       case InputName.review:
         setReview(value);
         break;
+    }
+
+    if (rating && review) {
+      btnRef.current.disabled = false;
     }
   });
 
@@ -87,7 +93,8 @@ const AddComment = (props) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled=""
+          disabled
+          ref={btnRef}
         >
           Submit
         </button>
