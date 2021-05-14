@@ -6,18 +6,18 @@ import { AuthorizationStatus } from 'const/const';
 import { getAuthorizationStatus } from 'store/selectors';
 
 const PrivateComponent = (props) => {
-  const { render, authorizationStatus } = props;
+  const { authorizationStatus, children } = props;
 
   return authorizationStatus === AuthorizationStatus.NO_AUTH ? (
-    <Link to={'/login'}>{render()}</Link>
+    <Link to={'/login'}>{children}</Link>
   ) : (
-    render()
+    children
   );
 };
 
 PrivateComponent.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -18,7 +18,7 @@ const iconHover = leaflet.icon({
   iconSize: [30, 30],
 });
 
-const Map = ({ offers, activeCityID }) => {
+const Map = ({ offers, currentOffer, activeCityID }) => {
   const [firstOffer] = offers;
   const { latitude, longitude, zoom } = firstOffer.city.location;
   const mapRef = useRef();
@@ -69,6 +69,16 @@ const Map = ({ offers, activeCityID }) => {
         .bindPopup(offer.title);
     });
 
+    if (currentOffer) {
+      leaflet
+        .marker(
+          [currentOffer.location.latitude, currentOffer.location.longitude],
+          { icon: iconHover }
+        )
+        .addTo(map)
+        .bindPopup(currentOffer.title);
+    }
+
     map.setView(locationMap, zoom);
   }, [activeCityID, map, offers]);
 
@@ -76,6 +86,7 @@ const Map = ({ offers, activeCityID }) => {
 };
 
 Map.propTypes = {
+  currentOffer: PropTypes.shape(propsOffers),
   offers: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   offersNearby: PropTypes.arrayOf(PropTypes.shape(propsOffers)),
   activeCityID: PropTypes.number,

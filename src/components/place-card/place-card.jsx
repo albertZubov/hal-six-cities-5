@@ -66,26 +66,20 @@ const PlaceCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text"></span>
           </div>
-          <PrivateComponent
-            render={() => (
-              <button
-                className={cl('place-card__bookmark-button button', {
-                  'place-card__bookmark-button--active': isFavorite,
-                })}
-                type="button"
-                onClick={setFavoritesOffers}
-              >
-                <svg
-                  className="place-card__bookmark-icon"
-                  width="18"
-                  height="19"
-                >
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
-            )}
-          />
+          <PrivateComponent>
+            <button
+              className={cl('place-card__bookmark-button button', {
+                'place-card__bookmark-button--active': isFavorite,
+              })}
+              type="button"
+              onClick={setFavoritesOffers}
+            >
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          </PrivateComponent>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

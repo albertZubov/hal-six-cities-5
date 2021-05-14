@@ -48,7 +48,9 @@ const Favorites = (props) => {
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
+            <h1 className="favorites__title">
+              {arrKeyCities.length ? 'Saved listing' : 'Nothing yet saved'}
+            </h1>
             <ul className="favorites__list">
               {arrKeyCities.map((city, id) => {
                 return (
@@ -88,9 +90,7 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  offersFavorite: PropTypes.shape(
-    PropTypes.arrayOf(PropTypes.shape(propsOffers))
-  ),
+  offersFavorite: PropTypes.object.isRequired,
   userData: PropTypes.shape(propsUserData),
 };
 

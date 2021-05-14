@@ -33,6 +33,7 @@ const Room = (props) => {
     setFavoritesOffers,
     offer,
     authorizationStatus,
+    activeID,
   } = props;
 
   const { email, avatarUrl } = props.userData;
@@ -215,7 +216,7 @@ const Room = (props) => {
           </div>
           {offersNearby.length && (
             <section className="property__map map">
-              <Map offers={offersNearby} />
+              <Map offers={offersNearby} currentOffer={offer} />
             </section>
           )}
         </section>
