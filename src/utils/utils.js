@@ -65,3 +65,5 @@ export const serverAdapter = (obj) =>
 
 export const formattingDataServerToClinet = (arrData) =>
   arrData.map((obj) => serverAdapter(obj));
+
+export const transformBoolToNumber = (boolean) => (boolean ? 1 : 0);

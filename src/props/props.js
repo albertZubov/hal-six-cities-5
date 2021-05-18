@@ -13,7 +13,6 @@ export const propsOffers = {
   rating: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  // tariff: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   city: PropTypes.shape({
     location: PropTypes.shape({

@@ -8,6 +8,7 @@ export const ActionType = {
   LOAD_USER_DATA: 'LOAD_USER_DATA',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
   LOAD_COMMENTS: 'LOAD_COMMENTS',
+  CHANGE_FAVORITE: 'CHANGE_FAVORITE',
 };
 
 export const ActionCreator = {
@@ -54,5 +55,10 @@ export const ActionCreator = {
   loadComments: (comments) => ({
     type: ActionType.LOAD_COMMENTS,
     payload: comments,
+  }),
+
+  changeOfferFavorite: (payload) => ({
+    type: ActionType.CHANGE_FAVORITE,
+    payload,
   }),
 };

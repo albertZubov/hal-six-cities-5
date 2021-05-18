@@ -23,6 +23,20 @@ const loadData = () => {
         return extend(state, {
           offersNearby: action.payload,
         });
+
+      case ActionType.CHANGE_FAVORITE:
+        const newOffers = state.offers.map((offer) => {
+          if (offer.id === action.payload.id) {
+            // Разобрать
+            return action.payload;
+          }
+
+          return offer;
+        });
+
+        return extend(state, {
+          offers: newOffers,
+        });
     }
 
     return state;

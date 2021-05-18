@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { commentPost } from '../../store/api-actions';
@@ -8,20 +8,26 @@ const InputName = {
   review: 'review',
 };
 
+const MIN_QUANTITY_SYMBOLS = 50;
+
 const AddComment = (props) => {
   const titleLabel = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
   const { id, onSubmit } = props;
+  const formRef = useRef();
 
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
 
   const handleSubmit = useCallback((evt) => {
     evt.preventDefault();
+
     onSubmit({
       description: review,
       rating,
       id,
     });
+
+    formRef.current.reset();
   });
 
   const handleFieldChange = useCallback((evt) => {
@@ -44,6 +50,7 @@ const AddComment = (props) => {
       action="#"
       method="post"
       onSubmit={handleSubmit}
+      ref={formRef}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -87,7 +94,7 @@ const AddComment = (props) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled=""
+          disabled={!(rating && review.length > MIN_QUANTITY_SYMBOLS)}
         >
           Submit
         </button>

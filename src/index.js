@@ -22,15 +22,15 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(redirect) 
+    applyMiddleware(redirect)
   )
 );
 
 Promise.all([store.dispatch(fetchPlacesList()), store.dispatch(checkAuth())])
-  .then(([offers]) => {
+  .then(() => {
     ReactDOM.render(
       <Provider store={store}>
-        <App offers={offers} />
+        <App />
       </Provider>,
       document.querySelector(`#root`)
     );
