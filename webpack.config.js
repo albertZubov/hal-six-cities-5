@@ -11,6 +11,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     open: true,
     port: 8080,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -21,10 +22,19 @@ module.exports = {
           loader: 'babel-loader',
         },
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: ['file-loader'],
+      },
     ],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
   devtool: 'source-map',
 };
