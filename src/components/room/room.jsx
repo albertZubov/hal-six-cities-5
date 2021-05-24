@@ -56,7 +56,7 @@ const Room = (props) => {
     loadComments(id);
     loadingHotelsNearby(id);
   }, []);
-
+  
   return (
     <div className="page">
       <header className="header">
@@ -119,8 +119,7 @@ const Room = (props) => {
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
-                <PrivateComponent
-                  render={() => (
+                <PrivateComponent>
                     <button
                       className={cl('property__bookmark-button button', {
                         'property__bookmark-button--active': isFavorite,
@@ -137,8 +136,7 @@ const Room = (props) => {
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
                     </button>
-                  )}
-                />
+                 </PrivateComponent>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

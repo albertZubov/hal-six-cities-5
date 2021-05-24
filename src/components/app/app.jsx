@@ -25,6 +25,7 @@ const App = () => {
         <Route exact path={AppClient.OFFER_ID}>
           {({ match }) => <Room activeID={+match.params.id} />}
         </Route>
+        <Route path="*">404</Route>
       </Switch>
     </BrowserRouter>
   );
