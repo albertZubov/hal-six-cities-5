@@ -1,4 +1,0 @@
-node_modules
-public/bundle.js*
-.vscode/launch.json
-*.log 
